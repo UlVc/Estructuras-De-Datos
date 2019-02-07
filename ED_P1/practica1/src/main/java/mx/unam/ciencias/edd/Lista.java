@@ -191,8 +191,6 @@ public class Lista<T> implements Coleccion<T> {
      *         <code>null</code>.
      */
     public void inserta(int i, T elemento) {
-
-    	if (elemento == null) throw new NoSuchElementException();
         
         if (elemento == null)
             throw new IllegalArgumentException();
@@ -204,16 +202,12 @@ public class Lista<T> implements Coleccion<T> {
             agregaFinal(elemento);
 
         else {
-
+            
             Nodo nuevo = new Nodo(elemento);
             Nodo aux = cabeza;
 
             for(int x=0;x<i;x++)
-<<<<<<< HEAD
                 aux = aux.siguiente;
-=======
-            	aux = aux.siguiente;
->>>>>>> 5135ad5584d0eaeedbfb7a09b055c180c99cd1e4
 
             aux.anterior.siguiente = nuevo;
             nuevo.anterior = aux.anterior;
