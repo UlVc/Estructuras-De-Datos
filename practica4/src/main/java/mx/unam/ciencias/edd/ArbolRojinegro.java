@@ -184,9 +184,7 @@ public class ArbolRojinegro<T extends Comparable<T>>
     }
 
     private boolean esIzquierdo(VerticeRojinegro vertice){
-    	if(!vertice.hayPadre())
-    		return false;
-    	return vertice.padre.izquierdo == vertice;
+        return !vertice.hayPadre() ? false : vertice.padre.izquierdo == vertice;
     }
 
     /**
