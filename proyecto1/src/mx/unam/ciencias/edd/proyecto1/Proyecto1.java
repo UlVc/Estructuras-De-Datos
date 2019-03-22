@@ -23,7 +23,7 @@ public class Proyecto1 {
 
     /* Variables de tipo String que nos ayudarán para representar banderas y errores. */
     static final String ERROR_ENTRADA_ESTANDAR = "Hubo un error con la entrada.";
-    static final String ERROR_LECTURA_ARCHIVOS = "Hubo un error el leer archivo(s).";
+    static final String ERROR_LECTURA_ARCHIVOS = "Hubo un error en el leer archivo(s).";
     static final String B_REVERSA = "-r";
     static final String B_ARCHIVO = "-o";
     static String path;
@@ -43,8 +43,8 @@ public class Proyecto1 {
         checaArgumentos(args);
         boolean esEntradaEstandar = entradaEstandar(args, esReversa, esArchivo);
         String entrada;
-
-        if(!esEntradaEstandar)
+        System.out.println(esArchivo);
+        if(!esEntradaEstandar) {
 
             //---------------Se pasó un archivo o más.---------------
 
@@ -56,27 +56,35 @@ public class Proyecto1 {
                     System.out.println(ERROR_LECTURA_ARCHIVOS);
                     System.exit(-1);
                 }
-        else
+        }else
 
             //---------------Se pasó un texto por la entrada estándar.---------------
 
             try(BufferedReader bfr = new BufferedReader(new InputStreamReader(System.in))) {
 
                 //---------Si se pasó la bandera '-o'---------
-                if(esArchivo)
+                if(esArchivo) {
+                	System.out.println("SE ACTIVÓ LA BANDERA -O");
                     try{
                         File file = new File(path);
+                        FileWriter filew = new FileWriter(file);
+
                         if(!file.exists())
                             file.createNewFile();
-                        FileWriter fw = new FileWriter(file);
-                        BufferedWriter bw = new BufferedWriter(fw);
-                        while ((entrada = bfr.readLine()) != null)
-                            bw.write(parrafoLista.agrega(new Comparador(entrada)));
+
+                        BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+
+                        while ((entrada = bfr.readLine()) != null) {
+                            bw.write(entrada);
+                        	bw.newLine();
+                        }
+
                         bw.close();
+
                     }catch(Exception e) {
                         e.printStackTrace();
                     }
-                else
+                }else
                     while((entrada = bfr.readLine()) != null)
                         parrafoLista.agrega(new Comparador(entrada)); //Vamos agregando línea a línea las lineas de la entrada estándar.
 
@@ -96,27 +104,17 @@ public class Proyecto1 {
      * @param args Argumentos recibidos de la consola.
      */
     private static void checaArgumentos(String[] args) {
-        for(String str : args) {
-            int x = 0;
-            if(str.equals(B_REVERSA)) 
-                esReversa = true;
-            if(str.equals(B_ARCHIVO)) {
-                esArchivo = true;
-                String[] args2;
-                for(int i=x;i<=args.length;i++)
-                    path += args[i];
+
+        for(int i=0;i<args.length;i++) {
+        	if(args[i].equals(B_REVERSA)) esReversa = true;
+            if(args[i].equals(B_ARCHIVO)) {// '-o'
+            	System.out.println("SE ACTIVÓ LA BANDERA '-O' ");
+            	esArchivo = true;
+            	path = args[i+1];
             }
-            x++;
-            if(!str.equals(B_REVERSA)) archivosLista.agrega(str);
+            if(!args[i].equals(B_REVERSA) && !args[i].equals(B_ARCHIVO)) archivosLista.agrega(args[i]);
         }
     }
-
-    /* Método que nos dará la ubicación en donde guardaremos el texto introducido con la entrada estándar. */
-    /*private String path(String[] args) {
-        for(int i=0;args[i]!="\"";i++)
-            path += args;
-        return path;
-    }*/
 
     /**
      * Metodo que nos dice como se comportara nuestro programa, ya sea leyendo un
@@ -128,7 +126,7 @@ public class Proyecto1 {
      *         <tt>false</tt> si leera un archivo(s).
      */
     private static boolean entradaEstandar(String[] args, boolean esReversa, boolean esArchivo) {
-        return (args.length == 0 || (args.length == 1 && esReversa) || (args.length == 1 && esArchivo)) ? true : false;
+        return (args.length == 0 || (args.length == 1 && esReversa) || (args.length >= 1 && esArchivo)) ? true : false;
     }
 
 }

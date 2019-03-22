@@ -25,11 +25,11 @@ public class Comparador implements Comparable<Comparador> {
 		return cadena;
 	}
 
-	/* Método que realiza comparaciones para que nos pueda ayudar cuando querramos acomodar el texto. */
+	/* Método que realiza comparaciones para que acomoda el texto. */
 	@Override public int compareTo(Comparador cad) {
 		Collator collator = Collator.getInstance();
 		collator.setStrength(Collator.PRIMARY);
-		return collator.compare(cadena.replaceAll("\\P{Lower}+", ""), cad.toString().replaceAll("\\P{Lower}+", "")); // \\P{Lower}+ := letras minúsculas de [a,z]
+		return collator.compare(cadena.replaceAll("\\P{Lower}+", ""), cad.toString().replaceAll("\\P{Lower}+", "")); //P{Lower}+ := letras minúsculas de [a,z]
 	}
 
 }
