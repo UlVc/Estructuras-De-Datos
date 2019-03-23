@@ -15,6 +15,8 @@ public interface Coleccion<T> extends Iterable<T> {
     /**
      * Agrega un elemento a la colección.
      * @param elemento el elemento a agregar.
+     * @throws IllegalArgumentException si <code>elemento</code> es
+     *         <code>null</code>.
      */
     public void agrega(T elemento);
 
@@ -34,15 +36,20 @@ public interface Coleccion<T> extends Iterable<T> {
     public boolean contiene(T elemento);
 
     /**
-     * Nos dice si el conjunto de elementos en la colección es vacío.
-     * @return <code>true</code> si el conjunto de elementos en la colección es
-     *         vacío, <code>false</code> en otro caso.
+     * Nos dice si la colección es vacía.
+     * @return <code>true</code> si la colección es vacía, <code>false</code> en
+     *         otro caso.
      */
-    public boolean esVacio();
+    public boolean esVacia();
 
     /**
      * Regresa el número de elementos en la colección.
      * @return el número de elementos en la colección.
      */
     public int getElementos();
+
+    /**
+     * Limpia la colección de elementos, dejándola vacía.
+     */
+    public void limpia();
 }
