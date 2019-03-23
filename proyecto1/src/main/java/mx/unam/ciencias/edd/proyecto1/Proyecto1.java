@@ -23,10 +23,10 @@ public class Proyecto1 {
 
     /* Variables de tipo String que nos ayudarán para representar banderas y errores. */
     static final String ERROR_ENTRADA_ESTANDAR = "Hubo un error con la entrada.";
-    static final String ERROR_LECTURA_ARCHIVOS = "Hubo un error en el leer archivo(s).";
+    static final String ERROR_ENTRADA_OUTPUT = "Hubo un error en la dirección.";
     static final String B_REVERSA = "-r";
-    static final String B_ARCHIVO = "-o";
-    static String path;
+    static final String B_OUTPUT = "-o";
+    static String path, entrada;
     static Banderas b = new Banderas();
 
     /* Lineas del archivo recibido. */
@@ -37,23 +37,7 @@ public class Proyecto1 {
     static Lista<String> aux2 = new Lista<>();
 
     /* Variables booleanas que nos indicara si la bandera se activaron. */
-    static boolean esReversa = false;
-    static boolean esArchivo = false;
-
-    /* Variable que almacena lo que se introdujo en la entrada estándar. */
-    static String entrada = "";
-
-    public static void main(String[] args) {
-
-        checaArgumentos(args);
-        boolean esEntradaEstandar = entradaEstandar(args, esReversa, esArchivo);
-
-        if(!esEntradaEstandar) 
-            texto();
-        else
-            archivo();
-        imprimeLista();
-    }
+    static boolean esReversa, esOutput;
 
     /**
      * Metodo que analiza los argumentos recibidos y nos indicará si tiene alguna bandera;
@@ -62,38 +46,41 @@ public class Proyecto1 {
      */
     private static void checaArgumentos(String[] args) {
 
-        esArchivo = b.esArchivo(args);
+        esOutput = b.output(args);
         esReversa = b.esReversa(args);
 
-        if(esArchivo)
+        if(esOutput)
             path = b.path(args);
 
         for(int i=0;i<args.length;i++)
-            if(!args[i].equals(B_REVERSA) && !args[i].equals(B_ARCHIVO)) 
+            if(!args[i].equals(B_REVERSA) && !args[i].equals(B_OUTPUT)) 
                 archivosLista.agrega(args[i]);
     }
 
     /* Método que se utiliza cuando se pasó un texto por la entrada estándar. */
-    private static void texto() {
+    private static void eE() {
         for(String archivos : archivosLista)
             try(BufferedReader bfr = new BufferedReader(new FileReader(archivos))) {
-                while((entrada = bfr.readLine()) != null)
-                    parrafoLista.agrega(new Comparador(entrada)); //Vamos agregando línea a línea las lineas del archivo que se pasó en los argumentos.
+                if(esOutput) {
+                    while((entrada = bfr.readLine()) != null)
+                        parrafoLista.agrega(new Comparador(entrada));
+                    b.banderaOutput(path,entrada,bfr,listaOrdenada());
+                }else
+                    while((entrada = bfr.readLine()) != null)
+                        parrafoLista.agrega(new Comparador(entrada));
             }catch(IOException io) {
-                System.out.println(ERROR_LECTURA_ARCHIVOS);
+                System.out.println(ERROR_ENTRADA_OUTPUT);
                 System.exit(-1);
             }
     }
 
-    /* Método que se utiliza cuando se pasó un archivo por la entrada estándar. */
-    private static void archivo() {
+    /* Método que se utiliza cuando se pasó un archivo por medio de cat. */
+    private static void cat() {
         try(BufferedReader bfr = new BufferedReader(new InputStreamReader(System.in))) {
-            //---------Si se pasó la bandera '-o'---------
-            if(esArchivo) {
+            if(esOutput) {
                 while((entrada = bfr.readLine()) != null)
                     parrafoLista.agrega(new Comparador(entrada));
-                aux2 = listaOrdenada();
-                b.banderaArchivo(path,entrada,bfr,aux2);
+                b.banderaOutput(path,entrada,bfr,listaOrdenada());
             }else
                 while((entrada = bfr.readLine()) != null)
                     parrafoLista.agrega(new Comparador(entrada));
@@ -103,7 +90,8 @@ public class Proyecto1 {
             }
     }
 
-    /** Método que imprime lo que se recibió por medio de la entrada estándar,
+    /** 
+     * Método que imprime lo que se recibió por medio de la entrada estándar,
      * y analiza si se usó la bandera '-r' o no.
      */
     private static Lista<String> imprimeLista() {
@@ -117,7 +105,8 @@ public class Proyecto1 {
         return aux;
     }
 
-    /** Método que agrega lo que se recibió por medio de la entrada estándar a una Lista,
+    /** 
+     * Método que agrega lo que se recibió por medio de la entrada estándar a una Lista,
      * y analiza si se usó la bandera '-r' o no.
      */
     private static Lista<String> listaOrdenada() {
@@ -134,8 +123,20 @@ public class Proyecto1 {
      * Metodo que nos dice como se comportara nuestro programa, ya sea leyendo un
      * archivo o leyendo el texto con la entrada estandar.
      */
-    private static boolean entradaEstandar(String[] args, boolean esReversa, boolean esArchivo) {
-        return (args.length == 0 || (args.length == 1 && esReversa) || (args.length >= 1 && esArchivo)) ? true : false;
+    private static boolean esCat(String[] args, boolean esReversa, boolean esOutput) {
+        return (args.length == 0 || (args.length == 1 && esReversa) || (args.length >= 1 && esOutput)) ? true : false;
+    }
+
+    public static void main(String[] args) {
+
+        checaArgumentos(args);
+        boolean esCat = esCat(args, esReversa, esOutput);
+
+        if(esCat) cat();
+        else eE();
+
+        imprimeLista();
+
     }
 
 }

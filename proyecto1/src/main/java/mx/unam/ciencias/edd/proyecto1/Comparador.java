@@ -4,9 +4,9 @@ import java.text.Normalizer;
 import java.text.Normalizer.Form;
 
 /**
- * <p> Clase Comparador que recibe un String.</p>
+ * Clase Comparador que recibe un String.
  *
- * <p> Clase para comparar las cadenas de forma de distinta.
+ * Clase para comparar las cadenas de forma de distinta.
  * Se ingoran las minúsculas, carácteres especiales y mayúsculas.
  *
  */

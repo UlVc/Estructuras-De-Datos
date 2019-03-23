@@ -11,14 +11,14 @@ import mx.unam.ciencias.edd.Lista;
 public class Banderas {
 
 	static final String B_REVERSA = "-r";
-    static final String B_ARCHIVO = "-o";
-    private boolean esReversab = false;
+    static final String B_OUTPUT = "-o";
+    private boolean esReversab;
 
     /**
      * Método que crea un archivo usando la ruta introducida en la entrada estándar,
 	 * y hace una copia del archivo que se introdujo por la entrada estándar al nuevo archivo creado.
      */
-    protected void banderaArchivo(String path, String entrada, BufferedReader bfr, Lista<String> ls) {
+    protected void banderaOutput(String path, String entrada, BufferedReader bfr, Lista<String> ls) {
         try{
             File file = new File(path);
 
@@ -52,9 +52,9 @@ public class Banderas {
     }
 
     /* Método que checa si se introdujo la bandera '-o'. */
-    protected boolean esArchivo(String[] args) {
+    protected boolean output(String[] args) {
     	for(int i=0;i<args.length;i++)
-        	if(args[i].equals(B_ARCHIVO)) 
+        	if(args[i].equals(B_OUTPUT)) 
         		return true;
         return false;
     }
@@ -63,7 +63,7 @@ public class Banderas {
     protected String path(String[] args) {
     	String path = "";
     	for(int i=0;i<args.length;i++) {
-            if(args[i].equals(B_ARCHIVO))
+            if(args[i].equals(B_OUTPUT))
             	path = args[i+1];
         }
         return path;
