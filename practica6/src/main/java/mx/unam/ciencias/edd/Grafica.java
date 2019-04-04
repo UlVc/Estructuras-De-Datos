@@ -317,7 +317,28 @@ public class Grafica<T> implements Coleccion<T> {
      * @return una representación en cadena de la gráfica.
      */
     @Override public String toString() {
-        return "";
+        Lista<T> lista = new Lista<T>();
+
+        for(Vertice rojo : vertices)
+        	rojo.color = Color.ROJO;
+
+        String cadena = "{";
+        String aristas = "{";
+
+        for(Vertice v : vertices) {
+        	cadena += v.elemento + ", ";
+        	for(Vertice ady : v.vecinos) {
+        		if(ady.color==Color.ROJO)
+        			aristas += "(" + v.elemento + ", " + ady.elemento + "), ";
+        		v.color = Color.NEGRO;
+        	}
+        	lista.agrega(v.elemento);
+        }
+        for(Vertice nulo : vertices)
+        	nulo.color = Color.NINGUNO;
+
+        return cadena + "}, " + aristas + "}";
+
     }
 
     /**
@@ -330,23 +351,22 @@ public class Grafica<T> implements Coleccion<T> {
         if (objeto == null || getClass() != objeto.getClass())
             return false;
         @SuppressWarnings("unchecked") Grafica<T> grafica = (Grafica<T>)objeto;
-
-        if(aristas == grafica.aristas && getElementos() == grafica.getElementos() && vertices.equals(grafica.vertices)) {
-
-        	Lista<Vertice> a = vertices;
-        	Lista<Vertice> b = grafica.vertices;
-
-        	int z = 0;
-
-        	for(int x = 0; x <= a.getLongitud(); x++) {
-        		for(int y = 0; y <= b.getLongitud(); y++)
-        			if(a.get(x).vecinos == b.get(y).vecinos)
-        				z++;
-        		z--;
-        	}
-        	return 0 == z ? true : false;
+        if((getElementos() != grafica.getElementos()) || (aristas != grafica.aristas))
+        	return false;
+        for(Vertice v : vertices) {
+        	v.color = Color.ROJO;
+        	if(!grafica.contiene(v.elemento))
+        		return false;
         }
-    	return false;
+        for(Vertice v : vertices) {
+        	for(Vertice y : v.vecinos){
+        		if(y.color == Color.ROJO)
+        			if(!grafica.sonVecinos(y.get(),v.elemento))
+        				return false;
+        	}
+        	v.color = Color.NEGRO;
+        }
+        return true;
     }
 
     /**
