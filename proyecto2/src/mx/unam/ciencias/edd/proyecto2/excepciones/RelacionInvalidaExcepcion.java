@@ -1,4 +1,4 @@
-package mx.unam.ciencias.edd.proyecto2.exception;
+package mx.unam.ciencias.edd.proyecto2.excepciones;
 
 /**
  * Clase para excepciones de relaciones inválidas en gráficas.

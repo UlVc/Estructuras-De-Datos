@@ -232,6 +232,9 @@ public class Grafica<T> implements Coleccion<T> {
      *         otro caso.
      */
     public boolean esConexa() {
+        for(Vertice v : vertices)
+        	if(v.vecinos.esVacia())
+        		return false;
         return true;
     }
 
