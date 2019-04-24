@@ -10,7 +10,7 @@ public class MonticuloArreglo<T extends ComparableIndexable<T>>
 
     /* Número de elementos en el arreglo. */
     private int elementos;
-    /* Usamos un truco para poder utilizar arreglos genéricos. */
+    /* Usamos un truco pa ra poder utilizar arreglos genéricos. */
     private T[] arreglo;
 
     /* Truco para crear arreglos genéricos. Es necesario hacerlo así por cómo
@@ -37,8 +37,14 @@ public class MonticuloArreglo<T extends ComparableIndexable<T>>
      * @param n el número de elementos en el iterable.
      */
     public MonticuloArreglo(Iterable<T> iterable, int n) {
-        T aux[] = nuevoArreglo(n);
-        elementos = aux.length;
+        arreglo = nuevoArreglo(n);
+        int i = 0;
+        for(T e: iterable) {
+            arreglo[i] = e;
+            e.setIndice(i);
+            i+=1;
+        }
+        elementos = n;
     }
 
     /**
@@ -47,9 +53,28 @@ public class MonticuloArreglo<T extends ComparableIndexable<T>>
      * @throws IllegalStateException si el montículo es vacío.
      */
     @Override public T elimina() {
-        if(esVacia()) throw new IllegalStateException();
+        if(elementos == 0) throw new IllegalStateException();
+
+        T e = null;
+        for(int n=0;n<arreglo.length;n++) {
+            if(arreglo[n] != null) {
+                e = arreglo[n];
+                break;
+            }
+        }
+        int indice = e.getIndice();
+        for(int k=1;k<arreglo.length;k++) {
+            if(arreglo[k] != null) {
+                if(e.compareTo(arreglo[k])>0){
+                    e = arreglo[k];
+                    indice = arreglo[k].getIndice();
+                }
+            }
+        }
+        arreglo[indice].setIndice(-1);
+        arreglo[indice]=null;
         elementos--;
-        return null;
+        return e;
     }
 
     /**
@@ -63,7 +88,6 @@ public class MonticuloArreglo<T extends ComparableIndexable<T>>
         if(i<0 || i >= arreglo.length) throw new NoSuchElementException();
         return arreglo[i];
     }
-
     /**
      * Nos dice si el montículo es vacío.
      * @return <tt>true</tt> si ya no hay elementos en el montículo,

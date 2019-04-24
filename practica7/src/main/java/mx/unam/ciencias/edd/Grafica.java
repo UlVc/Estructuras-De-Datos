@@ -232,9 +232,28 @@ public class Grafica<T> implements Coleccion<T> {
      *         otro caso.
      */
     public boolean esConexa() {
-        for(Vertice v : vertices)
-        	if(v.vecinos.esVacia())
-        		return false;
+        if(getElementos() == 0) return true;
+        Vertice v = vertices.getPrimero();
+        Cola<Vertice> vert = new Cola<Vertice>();
+        paraCadaVertice((u) -> setColor(u, Color.NINGUNO));
+        vert.mete(v);
+        v.color = Color.NEGRO;
+
+        while(!vert.esVacia()){
+            Vertice aux = vert.saca();
+            for (Vertice n: aux.vecinos){
+                if(n.color == Color.NINGUNO) {
+                    vert.mete(n);
+                    n.color = Color.NEGRO;
+                }
+            }
+        }
+        for(Vertice w: vertices){
+            if(w.color.equals(Color.NINGUNO)){
+                return false;
+            }
+        }
+        paraCadaVertice((u) -> setColor(u, Color.NINGUNO));
         return true;
     }
 
@@ -244,7 +263,7 @@ public class Grafica<T> implements Coleccion<T> {
      * @param accion la acción a realizar.
      */
     public void paraCadaVertice(AccionVerticeGrafica<T> accion) {
-        for (Vertice v : vertices)
+        for(Vertice v : vertices)
             accion.actua(v);
     }
 
