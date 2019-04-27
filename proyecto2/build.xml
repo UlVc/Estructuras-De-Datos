@@ -24,11 +24,6 @@
            includeantruntime="false"
            deprecation="true"
            nowarn="off">
-      <classpath>
-        <fileset dir="${lib.dir}">
-          <include name="*.jar"/>
-        </fileset>
-      </classpath>
       <compilerarg value="-Xlint:unchecked"/>
     </javac>
   </target>

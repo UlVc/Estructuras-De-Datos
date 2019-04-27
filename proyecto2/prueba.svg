@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg width='385.57677616501144' height='385.57677616501144'><line x1='345.57677616501144' y1='192.78838808250572' x2='40.0' y2='192.78838808250575' stroke='black' stroke-width='2'/>
+<line x1='345.57677616501144' y1='192.78838808250572' x2='84.75068278280402' y2='84.75068278280405' stroke='black' stroke-width='2'/>
+<line x1='192.78838808250572' y1='345.57677616501144' x2='84.75068278280405' y2='300.82609338220743' stroke='black' stroke-width='2'/>
+<line x1='84.75068278280405' y1='300.82609338220743' x2='192.78838808250572' y2='345.57677616501144' stroke='black' stroke-width='2'/>
+<line x1='40.0' y1='192.78838808250575' x2='345.57677616501144' y2='192.78838808250572' stroke='black' stroke-width='2'/>
+<line x1='84.75068278280402' y1='84.75068278280405' x2='345.57677616501144' y2='192.78838808250572' stroke='black' stroke-width='2'/>
+<circle cx='345.57677616501144' cy='192.78838808250572' r='20.0' fill='white' stroke='black' stroke-width='1'/>
+<text x='345.57677616501144' y='197.78838808250572' font-size='20' text-anchor='middle' fill='black'>1</text>
+<circle cx='300.82609338220743' cy='300.8260933822074' r='20.0' fill='white' stroke='black' stroke-width='1'/>
+<text x='300.82609338220743' y='305.8260933822074' font-size='20' text-anchor='middle' fill='black'>2</text>
+<circle cx='192.78838808250572' cy='345.57677616501144' r='20.0' fill='white' stroke='black' stroke-width='1'/>
+<text x='192.78838808250572' y='350.57677616501144' font-size='20' text-anchor='middle' fill='black'>3</text>
+<circle cx='84.75068278280405' cy='300.82609338220743' r='20.0' fill='white' stroke='black' stroke-width='1'/>
+<text x='84.75068278280405' y='305.82609338220743' font-size='20' text-anchor='middle' fill='black'>4</text>
+<circle cx='40.0' cy='192.78838808250575' r='20.0' fill='white' stroke='black' stroke-width='1'/>
+<text x='40.0' y='197.78838808250575' font-size='20' text-anchor='middle' fill='black'>5</text>
+<circle cx='84.75068278280402' cy='84.75068278280405' r='20.0' fill='white' stroke='black' stroke-width='1'/>
+<text x='84.75068278280402' y='89.75068278280405' font-size='20' text-anchor='middle' fill='black'>6</text>
+<circle cx='192.7883880825057' cy='40.0' r='20.0' fill='white' stroke='black' stroke-width='1'/>
+<text x='192.7883880825057' y='45.0' font-size='20' text-anchor='middle' fill='black'>-2</text>
+<circle cx='300.8260933822074' cy='84.75068278280402' r='20.0' fill='white' stroke='black' stroke-width='1'/>
+<text x='300.8260933822074' y='89.75068278280402' font-size='20' text-anchor='middle' fill='black'>-26</text>
+</svg>
