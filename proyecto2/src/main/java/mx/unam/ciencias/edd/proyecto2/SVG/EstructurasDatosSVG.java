@@ -68,7 +68,7 @@ public class EstructurasDatosSVG {
 		max = GraficaAuxSVG.obtenerMaximo(g);
 		radio = (longitudNumero(max)*10+padding*2)/2;
 		perimetro = g.getElementos()*radio*3;
-		radioG = perimetro / 3.1416;
+		radioG = perimetro/3.1416;
 		largoSVGD = altoSVGD = radioG*2 + radio*2.0*2.0;
 		cadena = GraficaAuxSVG.obtenerVertices(g, radioG, radio, largoSVGD/2, altoSVGD/2, utils);
 
@@ -78,14 +78,17 @@ public class EstructurasDatosSVG {
 	/* Construye el código SVG de un ArbolBinario. */
 	public String arbolBinario(ArbolBinario<Integer> ab, EstructurasDeDatos arbol_a) {
 
+		int padding = 15, largoSVG, altoSVG, radio;
+		int x, y;
+		String cadena;
 		VerticeArbolBinario<Integer> max;
 
 		if(ab.esVacia()) { return xmlProlog; }
 
 		max = ArbolBinarioAuxSVG.obtenerMaximo(ab.raiz());
 		radio = (longitudNumero(max.get())*10+padding*2)/2;
-		largoSVG = ArbolBinarioAuxSVG.obtenerLongitudSVGArbol(ab,radio);
 		altoSVG = ArbolBinarioAuxSVG.obtenerAlturaSVGArbol(ab,radio);
+		largoSVG = ArbolBinarioAuxSVG.obtenerLongitudSVGArbol(ab,radio);
 		x = largoSVG/2;
 		y = radio*3;
 		cadena = ArbolBinarioAuxSVG.obtenerVertices(ab.raiz(), radio, largoSVG/2, x, y, arbol_a, utils);

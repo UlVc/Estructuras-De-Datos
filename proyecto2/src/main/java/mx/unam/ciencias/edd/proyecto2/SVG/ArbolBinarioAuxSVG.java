@@ -10,8 +10,10 @@ public abstract class ArbolBinarioAuxSVG extends ArbolBinario {
 
     private static VerticeArbolBinario<Integer> der = null, izq = null, max;
 
-	/* Obtiene el número más grande del subárbol. */
+    /* Obtiene el número más grande del subárbol. */
     public static VerticeArbolBinario<Integer> obtenerMaximo(VerticeArbolBinario<Integer> vertice) {
+
+        VerticeArbolBinario<Integer> der = null, izq = null, max;
 
         if(vertice == null) { return null; }
 
@@ -32,8 +34,19 @@ public abstract class ArbolBinarioAuxSVG extends ArbolBinario {
         return ((vertice.get().compareTo(max.get())>=0)? vertice : max);
     }
 
+        /* Longitud para el código SVG. */
+    public static int obtenerLongitudSVGArbol(ArbolBinario<Integer> ab, int radio) {
+        int numeroHojas = (int)Math.pow(2,ArbolBinarioAuxSVG.profundidad(ab));
+        return (numeroHojas+(numeroHojas/2)+2)*(radio*2);
+    }
+
+    /* Altura para el código SVG. */
+    public static int obtenerAlturaSVGArbol(ArbolBinario<Integer> ab, int radio) {
+        return (ArbolBinarioAuxSVG.profundidad(ab)+3)*(radio*2);
+    }
+
     /* Obtiene el código SVG de los vértices del árbol. */
-    public static String obtenerVertices(VerticeArbolBinario<Integer> vertice, int radio, int i, int x, int y, EstructurasDeDatos arbol_a, SVGUtils utils) {
+    public static String obtenerVertices(VerticeArbolBinario<Integer> vertice, int radio, int i, int x, int y, EstructurasDeDatos edd, SVGUtils utils) {
 
         String arbol = "", color = "white", colorLetra = "black";
 
@@ -41,11 +54,11 @@ public abstract class ArbolBinarioAuxSVG extends ArbolBinario {
 
         if(vertice.hayIzquierdo()) {
             arbol += utils.linea(x, y, x-i, y+radio*2);
-            arbol += obtenerVertices(vertice.izquierdo(), radio, i, x-i, y+radio*2, arbol_a, utils);
+            arbol += obtenerVertices(vertice.izquierdo(), radio, i, x-i, y+radio*2, edd, utils);
         }
         if(vertice.hayDerecho()) {
             arbol += utils.linea(x, y, x+i, y+radio*2);
-            arbol += obtenerVertices(vertice.derecho(), radio, i, x+i, y+radio*2, arbol_a, utils);
+            arbol += obtenerVertices(vertice.derecho(), radio, i, x+i, y+radio*2, edd, utils);
         }
 
         if(vertice.toString().charAt(0) == ('R')) {
@@ -59,8 +72,8 @@ public abstract class ArbolBinarioAuxSVG extends ArbolBinario {
 
         arbol += utils.circuloConNumero(vertice.get(), x, y, radio, color, colorLetra);
 
-        if(arbol_a == EstructurasDeDatos.ArbolAVL)
-            arbol += utils.texto(vertice.toString().split(" ")[1], x+radio, y-(radio/2), "text-anchor='middle'");
+        if(edd == EstructurasDeDatos.ArbolAVL)
+            arbol += utils.texto(vertice.toString().split(" ")[1], x+radio-10, y-(radio/2)-10, "text-anchor='end'");
 
         return arbol;
     }
@@ -68,17 +81,6 @@ public abstract class ArbolBinarioAuxSVG extends ArbolBinario {
     /* Regresa la profundidad del árbol. Será de gran ayuda para imprimir de manera correcta el SVG. */
     public static int profundidad(ArbolBinario<Integer> ab) {
         return profundidad((Vertice)ab.raiz());
-    }
-
-    /* Longitud para el código SVG. */
-    public static int obtenerLongitudSVGArbol(ArbolBinario<Integer> ab, int radio) {
-        int numeroHojas = (int)Math.pow(2,profundidad(ab));
-        return (numeroHojas+(numeroHojas/2)+2)*(radio*2);
-    }
-
-    /* Altura para el código SVG. */
-    public static int obtenerAlturaSVGArbol(ArbolBinario<Integer> ab, int radio) {
-        return (profundidad(ab)+3)*(radio*2);
     }
 
     /* Auxiliar para el metodo profundidad. */

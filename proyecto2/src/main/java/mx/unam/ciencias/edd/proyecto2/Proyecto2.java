@@ -4,13 +4,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.FileReader;
+
 import mx.unam.ciencias.edd.*;
 import mx.unam.ciencias.edd.proyecto2.SVG.*;
 
 public class Proyecto2 extends ConstructorEDD {
 
+	private static EstructurasDeDatos estructura = null;
+	private static Lista<Integer> elementos = new Lista<Integer>();
+
 	/* Lee los elementos que se le pasaron después del tipo de estructura de datos y construye un código SVG.*/
-	public static void leerElementos(Lista<Integer> elementos, EstructurasDeDatos estructura) throws Exception {
+	public static void construirEstructura(Lista<Integer> elementos, EstructurasDeDatos estructura) throws Exception {
 
 		Lista<Integer> lista = new Lista<Integer>();
 		EstructurasDatosSVG edSVG = new EstructurasDatosSVG();
@@ -58,10 +62,8 @@ public class Proyecto2 extends ConstructorEDD {
 	/* Lee un archivo de texto. */
 	private static void leeArchivo(String path) throws Exception {
 
-		EstructurasDeDatos estructura = null;
-		Lista<Integer> elementos = new Lista<Integer>();
 		Lista<String> st = new Lista<String>();
-		String cad = "";
+		String cadena = "";
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(path));
@@ -80,32 +82,29 @@ public class Proyecto2 extends ConstructorEDD {
 		}
 
 		for(int i=1;i<st.getLongitud();i++)
-			cad += ";" + st.get(i).replace(" ",";");
+			cadena += ";" + st.get(i).replace(" ",";");
 
-		String[] ary = cad.split(";");
+		String[] arrayElementos = cadena.split(";");
 
 		try {
-			for(int i=1;i<ary.length;i++)
-				elementos.agrega(Integer.parseInt(ary[i]));
+			for(int i=1;i<arrayElementos.length;i++)
+				elementos.agrega(Integer.parseInt(arrayElementos[i]));
 		}catch(NumberFormatException nfe) {
 			System.out.println("Introducir solamente numeros enteros.");
 			System.exit(-1);
 		}
 
-		leerElementos(elementos,estructura);
+		construirEstructura(elementos,estructura);
 		System.exit(-1);
 	}
 
 	public static void main(String[] args) throws Exception {
 
-		EstructurasDeDatos estructura = null;
-		Lista<Integer> elementos = new Lista<Integer>();
-
 		if(args.length == 1)
 			leeArchivo(args[0].trim());
 
 		if(args.length == 0) {
-			System.out.println("Introduce una estructura de datos y sus elementos o un archivo de texto.");	
+			System.out.println("Introduzca una estructura de datos y sus elementos o un archivo de texto.");	
 			System.exit(-1);
 		}
 
@@ -124,7 +123,7 @@ public class Proyecto2 extends ConstructorEDD {
 			System.exit(-1);
 		}
 
-		leerElementos(elementos, estructura);
+		construirEstructura(elementos, estructura);
 
 	}
 

@@ -49,7 +49,6 @@ public class GraficaAuxSVG extends Grafica {
 		int i = 0;
 		VerticeCoordenada[] coordenadas = new VerticeCoordenada[g.getElementos()];
 
-		// Obteniendo Vertices y asignarles una coordenada.
 		for(int v: g) {
 			xi = radioG*Math.cos(anguloi);
 			yi = radioG*Math.sin(anguloi);
@@ -61,7 +60,6 @@ public class GraficaAuxSVG extends Grafica {
 			i++;
 		}
 
-		// Obteniendo aristas.
 		arr.quickSort(coordenadas);
 		for(VerticeCoordenada v: coordenadas) {
 			for(VerticeGrafica<Integer> vecino: v.vertice.vecinos()) {

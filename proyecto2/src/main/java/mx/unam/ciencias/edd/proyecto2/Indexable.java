@@ -1,4 +1,6 @@
-package mx.unam.ciencias.edd;
+package mx.unam.ciencias.edd.proyecto2;
+
+import mx.unam.ciencias.edd.ComparableIndexable;
 
 /**
  * Clase para poder utilizar comparables indexables.
@@ -39,12 +41,10 @@ public class Indexable<T> implements ComparableIndexable<Indexable<T>> {
      *         es mayor.
      */
     @Override public int compareTo(Indexable<T> indexable) {
-        if (this.valor == indexable.getValor()) {
+        if (this.valor == indexable.getValor())
             return 0;
-        }
-        if (this.valor > indexable.getValor()) {
+        if (this.valor > indexable.getValor())
             return 1;
-        }
         return -1;
     }
 
