@@ -1,6 +1,7 @@
 package mx.unam.ciencias.edd.proyecto3;
 
 import mx.unam.ciencias.edd.Lista;
+import mx.unam.ciencias.edd.proyecto3.html.ConstruyeHTML;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -33,11 +34,16 @@ public class Proyecto3 {
 
 		l1 = l1.mergeSort(eliminarRepetidos(contarPalabras(l1)));
 
+		String conteo = "";
+
 		for(int i = 0; i < l1.getLongitud(); i++)
 			if(Integer.parseInt(l1.get(i).substring(0,1)) > 1)
-				System.out.println(l1.get(i).substring(0,1) + " veces: " + l1.get(i).replace(l1.get(i).substring(0,1),""));
+				conteo += l1.get(i).substring(0,1) + " veces: " + l1.get(i).replace(l1.get(i).substring(0,1),"") + "<br>";
 			else
-				System.out.println(l1.get(i).substring(0,1) + " vez: " + l1.get(i).replace(l1.get(i).substring(0,1),""));
+				conteo += l1.get(i).substring(0,1) + " vez: " + l1.get(i).replace(l1.get(i).substring(0,1),"") + "<br>";
+
+		ConstruyeHTML html = new ConstruyeHTML(conteo,"yei","/home/ul/Desktop/proyecto3/yei.html");
+		html.generaHTML();
 
 	}
 
