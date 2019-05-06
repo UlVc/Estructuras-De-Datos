@@ -59,7 +59,6 @@ public class Dispersores {
         int c = 0xFFFFFFFF;
         int x = llave.length;
         int recorrido = 0;
-        int[] elementos;
 
         while(x > 11) {
 
@@ -135,17 +134,17 @@ public class Dispersores {
             case 9:
                 a += combinaLittleEndian(llave[recorrido], llave[recorrido+1], llave[recorrido+2], llave[recorrido+3]);
                 b += combinaLittleEndian(llave[recorrido+4], llave[recorrido+5], llave[recorrido+6], llave[recorrido+7]);
-                c += combinaLittleEndian(llave[recorrido+8], (byte) 0, (byte) 0, (byte) 0);
+                c += combinaLittleEndian((byte) 0, (byte) 0, (byte) 0, llave[recorrido+8]);
                 break;
             case 10:
                 a += combinaLittleEndian(llave[recorrido], llave[recorrido+1], llave[recorrido+2], llave[recorrido+3]);
                 b += combinaLittleEndian(llave[recorrido+4], llave[recorrido+5], llave[recorrido+6], llave[recorrido+7]);
-                c += combinaLittleEndian(llave[recorrido+8], llave[recorrido+9], (byte) 0, (byte) 0);
+                c += combinaLittleEndian((byte) 0, (byte) 0, llave[recorrido+8], llave[recorrido+9]);
                 break;
             case 11:
                 a += combinaLittleEndian(llave[recorrido], llave[recorrido+1], llave[recorrido+2], llave[recorrido+3]);
                 b += combinaLittleEndian(llave[recorrido+4], llave[recorrido+5], llave[recorrido+6], llave[recorrido+7]);
-                c += combinaLittleEndian(llave[recorrido+8], llave[recorrido+9], llave[recorrido+10], (byte) 0);
+                c += combinaLittleEndian((byte) 0, llave[recorrido+8], llave[recorrido+9], llave[recorrido+10]);
                 break;
         }
 

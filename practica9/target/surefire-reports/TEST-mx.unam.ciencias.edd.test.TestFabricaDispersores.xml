@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="3" failures="2" name="mx.unam.ciencias.edd.test.TestFabricaDispersores" time="0.003" errors="0" skipped="0">
+<testsuite tests="3" failures="2" name="mx.unam.ciencias.edd.test.TestFabricaDispersores" time="0.002" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/java/jdk1.8.0_191/jre/lib/amd64"/>
@@ -62,7 +62,7 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="mx.unam.ciencias.edd.test.TestFabricaDispersores" name="testDispersorCadenaDJB" time="0.002">
+  <testcase classname="mx.unam.ciencias.edd.test.TestFabricaDispersores" name="testDispersorCadenaDJB" time="0.001">
     <failure type="java.lang.AssertionError">java.lang.AssertionError
 	at org.junit.Assert.fail(Assert.java:86)
 	at org.junit.Assert.assertTrue(Assert.java:41)
@@ -82,8 +82,8 @@
 	at java.lang.Thread.run(Thread.java:748)
 </failure>
   </testcase>
-  <testcase classname="mx.unam.ciencias.edd.test.TestFabricaDispersores" name="testDispersorCadenaXOR" time="0"/>
-  <testcase classname="mx.unam.ciencias.edd.test.TestFabricaDispersores" name="testDispersorCadenaBJ" time="0.001">
+  <testcase classname="mx.unam.ciencias.edd.test.TestFabricaDispersores" name="testDispersorCadenaXOR" time="0.001"/>
+  <testcase classname="mx.unam.ciencias.edd.test.TestFabricaDispersores" name="testDispersorCadenaBJ" time="0">
     <failure type="java.lang.AssertionError">java.lang.AssertionError
 	at org.junit.Assert.fail(Assert.java:86)
 	at org.junit.Assert.assertTrue(Assert.java:41)

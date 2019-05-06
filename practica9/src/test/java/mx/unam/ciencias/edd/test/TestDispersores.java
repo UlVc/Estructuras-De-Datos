@@ -142,6 +142,7 @@ public class TestDispersores {
         for (int i = 1; i < ARREGLO.length; i++) {
             byte[] sub = subArreglo(i);
             int r = Dispersores.dispersaBJ(sub);
+            System.out.println(r);
             Assert.assertTrue(RESULTADOS_BJ[i-1] == r);
         }
     }

@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: mx.unam.ciencias.edd.test.TestFabricaDispersores
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec <<< FAILURE!
-testDispersorCadenaDJB(mx.unam.ciencias.edd.test.TestFabricaDispersores)  Time elapsed: 0.002 sec  <<< FAILURE!
+Tests run: 3, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec <<< FAILURE!
+testDispersorCadenaDJB(mx.unam.ciencias.edd.test.TestFabricaDispersores)  Time elapsed: 0.001 sec  <<< FAILURE!
 java.lang.AssertionError
 	at org.junit.Assert.fail(Assert.java:86)
 	at org.junit.Assert.assertTrue(Assert.java:41)
@@ -21,7 +21,7 @@ java.lang.AssertionError
 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
 	at java.lang.Thread.run(Thread.java:748)
 
-testDispersorCadenaBJ(mx.unam.ciencias.edd.test.TestFabricaDispersores)  Time elapsed: 0.001 sec  <<< FAILURE!
+testDispersorCadenaBJ(mx.unam.ciencias.edd.test.TestFabricaDispersores)  Time elapsed: 0 sec  <<< FAILURE!
 java.lang.AssertionError
 	at org.junit.Assert.fail(Assert.java:86)
 	at org.junit.Assert.assertTrue(Assert.java:41)
