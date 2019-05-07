@@ -57,8 +57,13 @@ public class Dispersores {
         int a = 0x9E3779B9;
         int b = 0x9E3779B9;
         int c = 0xFFFFFFFF;
+
+        int a1,b1,c1;
+
         int x = llave.length;
         int recorrido = 0;
+
+        int[] aux = new int[3];
 
         while(x > 11) {
 
@@ -66,35 +71,13 @@ public class Dispersores {
             b += combinaLittleEndian(llave[recorrido+4], llave[recorrido+5], llave[recorrido+6], llave[recorrido+7]);
             c += combinaLittleEndian(llave[recorrido+8], llave[recorrido+9], llave[recorrido+10], llave[recorrido+11]);
 
-            a -= b;
-            a -= c;
-            a ^= (c >> 13);
-            b -= c;
-            b -= a;
-            b ^= (a << 8);
-            c -= a;
-            c -= b;
-            c ^= (b >> 13);
+            a1 = mezcla(a,b,c)[0];
+            b1 = mezcla(a,b,c)[1];
+            c1 = mezcla(a,b,c)[2];
 
-            a -= b;
-            a -= c;
-            a ^= (c >> 12);
-            b -= c;
-            b -= a;
-            b ^= (a << 16);
-            c -= a;
-            c -= b;
-            c ^= (b >> 5);
-
-            a -= b;
-            a -= c;
-            a ^= (c >> 3);
-            b -= c;
-            b -= a;
-            b ^= (a << 10);
-            c -= a;
-            c -= b;
-            c ^= (b >> 15);
+            a = a1;
+            b = b1;
+            c = c1;
 
             x -= 12;
             recorrido += 12;
@@ -134,12 +117,12 @@ public class Dispersores {
             case 9:
                 a += combinaLittleEndian(llave[recorrido], llave[recorrido+1], llave[recorrido+2], llave[recorrido+3]);
                 b += combinaLittleEndian(llave[recorrido+4], llave[recorrido+5], llave[recorrido+6], llave[recorrido+7]);
-                c += combinaLittleEndian((byte) 0, (byte) 0, (byte) 0, llave[recorrido+8]);
+                c += combinaLittleEndian((byte) 0, llave[recorrido+8], (byte) 0, (byte) 0);
                 break;
             case 10:
                 a += combinaLittleEndian(llave[recorrido], llave[recorrido+1], llave[recorrido+2], llave[recorrido+3]);
                 b += combinaLittleEndian(llave[recorrido+4], llave[recorrido+5], llave[recorrido+6], llave[recorrido+7]);
-                c += combinaLittleEndian((byte) 0, (byte) 0, llave[recorrido+8], llave[recorrido+9]);
+                c += combinaLittleEndian((byte) 0, llave[recorrido+8], llave[recorrido+9], (byte) 0);
                 break;
             case 11:
                 a += combinaLittleEndian(llave[recorrido], llave[recorrido+1], llave[recorrido+2], llave[recorrido+3]);
@@ -148,37 +131,7 @@ public class Dispersores {
                 break;
         }
 
-        a -= b;
-        a -= c;
-        a ^= (c >> 13);
-        b -= c;
-        b -= a;
-        b ^= (a << 8);
-        c -= a;
-        c -= b;
-        c ^= (b >> 13);
-
-        a -= b;
-        a -= c;
-        a ^= (c >> 12);
-        b -= c;
-        b -= a;
-        b ^= (a << 16);
-        c -= a;
-        c -= b;
-        c ^= (b >> 5);
-
-        a -= b;
-        a -= c;
-        a ^= (c >> 3);
-        b -= c;
-        b -= a;
-        b ^= (a << 10);
-        c -= a;
-        c -= b;
-        c ^= (b >> 15);
-
-        return c;
+        return mezcla(a,b,c)[2];
     }
 
     /**
@@ -187,42 +140,47 @@ public class Dispersores {
      * @return la dispersión de Daniel Bernstein de la llave.
      */
     public static int dispersaDJB(byte[] llave) {
-        return 0;
+        int h = 5381;
+        for(int i = 0; i < llave.length; i++)
+            h += (h << 5) + (llave[i] & 0xFF);
+        return h;
     }
 
-    /*private static void mezcla(int a, int b, int c) {
+    private static int[] mezcla(int a, int b, int c) {
 
-        a -= b;
-        a -= c;
-        a ^= (c >> 13);
-        b -= c;
-        b -= a;
-        b ^= (a << 8);
-        c -= a;
-        c -= b;
-        c ^= (b >> 13);
+      a -= b;
+      a -= c;
+      a ^= (c >>> 13);
+      b -= c;
+      b -= a;
+      b ^= (a << 8);
+      c -= a;
+      c -= b;
+      c ^= (b >>> 13);
 
-        a -= b;
-        a -= c;
-        a ^= (c >> 12);
-        b -= c;
-        b -= a;
-        b ^= (a << 16);
-        c -= a;
-        c -= b;
-        c ^= (b >> 5);
+      a -= b;
+      a -= c;
+      a ^= (c >>> 12);
+      b -= c;
+      b -= a;
+      b ^= (a << 16);
+      c -= a;
+      c -= b;
+      c ^= (b >>> 5);
 
-        a -= b;
-        a -= c;
-        a ^= (c >> 3);
-        b -= c;
-        b -= a;
-        b ^= (a << 10);
-        c -= a;
-        c -= b;
-        c ^= (b >> 15);
+      a -= b;
+      a -= c;
+      a ^= (c >>> 3);
+      b -= c;
+      b -= a;
+      b ^= (a << 10);
+      c -= a;
+      c -= b;
+      c ^= (b >>> 15);
 
-    }*/
+      return new int[]{a,b,c};
+      
+    }
 
     private static int combinaBigEndian(byte a, byte b, byte c, byte d) {
         return ((a & 0xFF) << 24) | ((b & 0xFF) << 16) | ((c & 0xFF) << 8) | ((d & 0xFF));
