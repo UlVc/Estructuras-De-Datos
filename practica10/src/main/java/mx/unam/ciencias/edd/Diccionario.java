@@ -127,12 +127,13 @@ public class Diccionario<K, V> implements Iterable<V> {
     public Diccionario(int capacidad, Dispersor<K> dispersor) {
 
     	this.dispersor = dispersor;
-    	
+    		
         if(capacidad < MINIMA_CAPACIDAD) 
         	capacidad = MINIMA_CAPACIDAD;
 
         int potencia = (int) Math.ceil(Math.log(capacidad*2) / Math.log(2));
-        entradas = new Lista<Entrada>[Math.pow(2,potencia)];
+
+        entradas = nuevoArreglo((int) Math.pow(2,potencia));
 
     }
 
@@ -226,7 +227,7 @@ public class Diccionario<K, V> implements Iterable<V> {
      * Limpia el diccionario de elementos, dejándolo vacío.
      */
     public void limpia() {
-    	Lista<Entrada>[] nuevoArreglo = new Lista<Entrada>[entradas.length];
+    	Lista<Entrada>[] nuevoArreglo = nuevoArreglo(entradas.length);
         elementos = 0;
     }
 
@@ -271,8 +272,8 @@ public class Diccionario<K, V> implements Iterable<V> {
         return new IteradorValores();
     }
 
-    private static int dispersionMascara(K llave) {
-    	return (entradas.length - 1) & llave;
+    private int dispersionMascara(K llave) {
+    	return (entradas.length - 1) & Dispersor.dispersa(llave);
     }
 
 }
