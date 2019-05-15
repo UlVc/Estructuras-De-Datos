@@ -50,7 +50,8 @@ public class Conjunto<T> implements Coleccion<T> {
      * @param elemento el elemento que queremos eliminar del conjunto.
      */
     @Override public void elimina(T elemento) {
-        conjunto.elimina(elemento);
+    	if (conjunto.contiene(elemento))
+            conjunto.elimina(elemento);
     }
 
     /**
@@ -83,13 +84,13 @@ public class Conjunto<T> implements Coleccion<T> {
      * @return la intersección del conjunto y el conjunto recibido.
      */
     public Conjunto<T> interseccion(Conjunto<T> conjunto) {
-        Conjunto<T> S = new Conjunto<T>();
+        Conjunto<T> s = new Conjunto<T>();
 
         for (T t : conjunto)
             if (this.conjunto.contiene(t) && conjunto.contiene(t))
-                S.agrega(t);
+                s.agrega(t);
 
-        return S;
+        return s;
     }
 
     /**
@@ -98,15 +99,15 @@ public class Conjunto<T> implements Coleccion<T> {
      * @return la unión del conjunto y el conjunto recibido.
      */
     public Conjunto<T> union(Conjunto<T> conjunto) {
-        Conjunto<T> S = new Conjunto<T>();
+        Conjunto<T> s = new Conjunto<T>();
 
         for (T t : this.conjunto)
-            S.agrega(t);
+            s.agrega(t);
 
         for (T t : conjunto)
-            S.agrega(t);
+            s.agrega(t);
 
-        return S;
+        return s;
     }
 
     /**
