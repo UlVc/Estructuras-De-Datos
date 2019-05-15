@@ -38,18 +38,19 @@ public class Diccionario<K, V> implements Iterable<V> {
          * diccionario. */
         public Iterador() {
 
-          boolean ningunaEsVacia = true;
+            boolean ningunaEsVacia = true;
 
-          for(int i = 0; i < entradas.length; i++)
-              if(entradas[i] != null) {
-                  indice = i;
-                  iterador = entradas[i].iterator();
-                  ningunaEsVacia = false;
-                  break;
-              }
+            for(int i = 0; i < entradas.length; i++) {
+                if(entradas[i] != null) {
+                    indice = i;
+                    iterador = entradas[i].iterator();
+                    ningunaEsVacia = false;
+                    break;
+                }
+            }
 
-          if(ningunaEsVacia)
-              iterador = null;
+            if(ningunaEsVacia)
+                iterador = null;
 
         }
 
@@ -64,19 +65,19 @@ public class Diccionario<K, V> implements Iterable<V> {
             if(iterador == null) { throw new NoSuchElementException(); }
 
             Entrada siguiente = iterador.next();
-            boolean noHayEntradasNulas = true;
+            boolean hayEntradasNulas = true;
 
-            if(!iterador.hasNext())
+            if(!iterador.hasNext()) {
                 for(int i = indice + 1; i < entradas.length; i++)
                     if(entradas[i] != null) {
                         iterador = entradas[i].iterator();
-                        noHayEntradasNulas = false;
                         indice = i;
+                        hayEntradasNulas = false;
                         break;
                     }
-
-            if(noHayEntradasNulas)
-                iterador = null;
+                if(hayEntradasNulas)
+                    iterador = null;
+            }
 
             return siguiente;
         }
@@ -310,6 +311,8 @@ public class Diccionario<K, V> implements Iterable<V> {
             if(llave.equals(e.llave)) {
                 entradas[i].elimina(e);
                 elementos--;
+                if(entradas[i].esVacia())
+                    entradas[i] = null;
                 llaveEncontrada = false;
             }
 
