@@ -15,12 +15,16 @@ public class ConstruyeHTML {
 	private static String titulo = "";
 	private static String body = "";
 	private static String directorio = "";
+	private static String arvolAVl = "";
+	private static String arvolRN = "";
 
-	public ConstruyeHTML(String body, String titulo, String directorio, Diccionario<String, Integer> diccionario) {
+	public ConstruyeHTML(String body, String titulo, String directorio, Diccionario<String, Integer> diccionario, String arvolAVl, String arvolRN) {
 		this.body = body;
 		this.titulo = titulo;
 		this.directorio = directorio;
 		this.diccionario = diccionario;
+		this.arvolAVl = arvolAVl;
+		this.arvolRN = arvolRN;
 	}
 
 	public ConstruyeHTML(Lista<String> archivos, String directorio, String titulo) {
@@ -83,7 +87,7 @@ public class ConstruyeHTML {
 	}
 
 	private static String generaCodigoHTML() {
-		return doctype + "<html>" + generaTitulo() + generaBody() + "</html>";
+		return doctype + "<html>" + generaTitulo() + generaBody() + arvolRN + arvolAVl + "</html>";
 	}
 
 	private static String generaBody() {

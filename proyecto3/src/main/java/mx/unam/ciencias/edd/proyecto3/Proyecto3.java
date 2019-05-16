@@ -2,6 +2,7 @@ package mx.unam.ciencias.edd.proyecto3;
 
 import mx.unam.ciencias.edd.Lista;
 import mx.unam.ciencias.edd.Diccionario;
+import mx.unam.ciencias.edd.proyecto3.eddsvg.GraficadoraEDD;
 import mx.unam.ciencias.edd.proyecto3.html.ConstruyeHTML;
 
 import java.io.BufferedReader;
@@ -40,7 +41,7 @@ public class Proyecto3 {
 				while ((cadena = br.readLine()) != null)
 	   				l.agrega(cadena.trim());
 	   		} catch (Exception e) {
-	   			System.out.println("Introduzca de manera correcta un archivo de texto.");
+	   			System.out.println("Introduzca de manera correcta un archivo de textoSSSSSSSSSS.");
 	   			System.exit(-1);
 	   		}
 
@@ -52,7 +53,8 @@ public class Proyecto3 {
 	   	html.generadorIndex(contadorElementos);
 	}
 
-	private static void html(String directorio, Lista<String> l, String titulo) {
+	private static void html(String directorio, Lista<String> l, String titulo) throws Exception {
+		GraficadoraEDD graficadora = new GraficadoraEDD();
 		String cadena = "";
 		String conteo = "";
 			
@@ -78,8 +80,14 @@ public class Proyecto3 {
 				conteo += diccionario.get(llave) + " vez: " + llave + "<br>";
 		}
 
-		ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario);
+		// Falta hacer que sólo se impriman los 15 más importantes.
+
+	   	String avl = graficadora.construirEstructura(diccionario, "ArbolAVL");
+	   	String arn = graficadora.construirEstructura(diccionario, "ArbolRojinegro");
+
+		ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn);
 		html.generaHTML();
+
 	}
 
 	private static Diccionario<String, Integer> cuentaPalabras(String[] array) {

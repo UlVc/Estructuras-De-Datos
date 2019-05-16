@@ -1,4 +1,4 @@
-package mx.unam.ciencias.edd.proyecto2;
+package mx.unam.ciencias.edd.proyecto3.eddsvg;
 
 import mx.unam.ciencias.edd.ComparableIndexable;
 

@@ -1,8 +1,8 @@
-package mx.unam.ciencias.edd.proyecto2.SVG;
+package mx.unam.ciencias.edd.proyecto3.eddsvg.SVG;
 
 import java.util.NoSuchElementException;
-import mx.unam.ciencias.edd.proyecto2.EstructurasDeDatos;
-import mx.unam.ciencias.edd.proyecto2.SVG.SVGUtils;
+import mx.unam.ciencias.edd.proyecto3.eddsvg.EstructurasDeDatos;
+import mx.unam.ciencias.edd.proyecto3.eddsvg.SVG.SVGUtils;
 import mx.unam.ciencias.edd.Grafica;
 import mx.unam.ciencias.edd.VerticeGrafica;
 import mx.unam.ciencias.edd.Arreglos;
