@@ -30,9 +30,10 @@ public abstract class ArbolBinarioAuxSVG extends ArbolBinario {
                 der = obtenerMaximo(vertice.derecho());
 
         if (izq != null && der != null) 
-            max = ((izq.get().compareTo(der.get())>=0)? izq : der);
+            max = ((izq.get().compareTo(der.get()) >= 0) ? izq : der);
         else
-            if (izq == null) { max = der; }
+            if (izq == null)
+                max = der;
             else 
                 max = izq; 
 
@@ -42,7 +43,7 @@ public abstract class ArbolBinarioAuxSVG extends ArbolBinario {
         /* Longitud para el código SVG. */
     public static int obtenerLongitudSVGArbol(ArbolBinario<Integer> ab, int radio) {
         int numeroHojas = (int) Math.pow(2, ArbolBinarioAuxSVG.profundidad(ab));
-        return (numeroHojas+(numeroHojas / 2) + 2)*(radio * 2);
+        return (numeroHojas+(numeroHojas / 2) + 2) * (radio * 2);
     }
 
     /* Altura para el código SVG. */

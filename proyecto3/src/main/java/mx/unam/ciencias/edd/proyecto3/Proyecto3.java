@@ -18,7 +18,7 @@ public class Proyecto3 {
     public static void main(String[] args) throws Exception {
         Lista<String> archivos = new Lista<String>();
         Lista<String> titulosLista = new Lista<String>();
-        Lista<String> l = new Lista<String>();
+        Lista<String> lista = new Lista<String>();
 
         String directorio = "";
         String cadena = "";
@@ -33,22 +33,22 @@ public class Proyecto3 {
         archivos.elimina(directorio);
 
         for (String s : archivos) {
-            String[] titulos = s.split("/");
-            String tituloTxt = titulos[titulos.length - 1];
-            String titulo = tituloTxt.substring(0, tituloTxt.length() - 4);
+            String[] directorioTitulo = s.split("/");
+            String tituloConExtension = directorioTitulo[directorioTitulo.length - 1];
+            String titulo = tituloConExtension.substring(0, tituloConExtension.length() - 4);
             titulosLista.agrega(titulo);
 
             try {
                 BufferedReader br = new BufferedReader(new FileReader(s));
                 while ((cadena = br.readLine()) != null)
-                    l.agrega(cadena.trim());
+                    lista.agrega(cadena.trim());
             } catch (Exception e) {
                 System.out.println("Introduzca de manera correcta un archivo de texto.");
                 System.exit(-1);
             }
 
-            html(directorio, l, titulo);
-            l.limpia();
+            html(directorio, lista, titulo);
+            lista.limpia();
         }
 
         String graficaSVG = graficadora.construirEstructuraGrafica(diccionarios, titulosLista, contadorElementos);
@@ -57,11 +57,11 @@ public class Proyecto3 {
         html.generadorIndex(contadorElementos, graficaSVG);
     }
 
-    private static void html(String directorio, Lista<String> l, String titulo) throws Exception {
+    private static void html(String directorio, Lista<String> lista, String titulo) throws Exception {
         String cadena = "";
         String conteo = "";
             
-        for (String s : l)
+        for (String s : lista)
             cadena += ";" + s.toLowerCase().replace(".", "").trim().replace(" ", ";").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u").replace(",", "");
 
         // Se tiene problemas cuando el archivo tiene varias lineas vacias.
