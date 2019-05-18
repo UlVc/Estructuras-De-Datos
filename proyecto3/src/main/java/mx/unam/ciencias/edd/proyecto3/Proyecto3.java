@@ -85,12 +85,35 @@ public class Proyecto3 {
         }
         
         // Falta hacer que sólo se impriman los 15 más importantes.
+        
+        Diccionario<String, Integer> diccionarioAcotado = acotaDiccionario(diccionario);
 
-        String avl = graficadora.construirEstructura(diccionario, "ArbolAVL");
-        String arn = graficadora.construirEstructura(diccionario, "ArbolRojinegro");
+        String avl = graficadora.construirEstructura(diccionarioAcotado, "ArbolAVL");
+        String arn = graficadora.construirEstructura(diccionarioAcotado, "ArbolRojinegro");
 
         ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn);
         html.generaHTML();
+    }
+
+    private static Diccionario<String, Integer> acotaDiccionario(Diccionario<String, Integer> diccionario) {
+        if (diccionario.getElementos() < 14)
+            return diccionario;
+
+        Diccionario<String, Integer> aux = new Diccionario<String, Integer>();
+        Iterator<String> iteradorLLave = diccionario.iteradorLlaves();
+        int contador = 1;
+
+        while (iteradorLLave.hasNext()) {
+            String llave = iteradorLLave.next();
+            aux.agrega(llave, diccionario.get(llave));
+            
+            if (contador == 15)
+                break;
+
+            contador++;
+        }
+
+        return aux;
     }
 
     private static Diccionario<String, Integer> cuentaPalabras(String[] array) {

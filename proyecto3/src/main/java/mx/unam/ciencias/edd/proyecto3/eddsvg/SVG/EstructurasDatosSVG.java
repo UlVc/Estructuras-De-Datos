@@ -13,13 +13,13 @@ public class EstructurasDatosSVG {
     private int i = border, largoSVG = border, e, altoSVG, radio, perimetro, max, x, y;
     private double radioG, largoSVGD, altoSVGD;
 
-    /* Constructor único que inicializa los valores. */
+    // Constructor único que inicializa los valores.
     public EstructurasDatosSVG() {
         utils = new SVGUtils();
         xmlProlog = "    <?xml version='1.0' encoding='utf-8'?>\n";
     }
 
-    /* Construye el código SVG de un ArbolBinario. */
+    // Construye el código SVG de un ArbolBinario.
     public String arbolBinario(ArbolBinario<Integer> ab, ArbolBinario<String> abC, EstructurasDeDatos arbol_a, Diccionario<String, Integer> elementos) {
         int padding = 15, largoSVG, altoSVG, radio;
         int x, y;
@@ -40,7 +40,7 @@ public class EstructurasDatosSVG {
         return String.format("%1$s    <svg width='%2$s' height='%3$s' xmlns='http://www.w3.org/2000/svg'>\n%4$s    </svg>", xmlProlog, largoSVG, altoSVG, cadena);
     }
 
-    /* Construye el código SVG de una Gráfica. */
+    // Construye el código SVG de una Gráfica.
     public String grafica(Grafica<Integer> g, Grafica<String> gC) {
         max = GraficaAuxSVG.obtenerMaximo(g);
         radio = (longitudNumero(max) * 10 + padding * 2) / 2;
@@ -52,7 +52,7 @@ public class EstructurasDatosSVG {
         return String.format("%1$s    <svg width='%2$s' height='%3$s' xmlns='http://www.w3.org/2000/svg'>%4$s    </svg>", xmlProlog, largoSVGD, altoSVGD, cadena);
     }
 
-    /* Obtiene la longitud de un número */
+    // Obtiene la longitud de un número
     private int longitudNumero(int n) {
         int i = 1;
         while (n >= 10) {
