@@ -56,9 +56,11 @@ public class ConstruyeHTML {
             contadorElementos.elimina(i);
         }
 
+        index += "<body>\n";
         index += grafica;
+        index += "\n</body>";
 
-        index += "</html>";
+        index += "\n</html>";
 
         try {
             FileWriter fw = new FileWriter(directorio + "index.html");
@@ -73,7 +75,7 @@ public class ConstruyeHTML {
         Iterator<String> iteradorLLave = diccionario.iteradorLlaves();
         int i = 0;
 
-        String svg = "<svg class='chart' width='420' height='" + diccionario.getElementos() * 20 + "' xmlns='http://www.w3.org/2000/svg' aria-labelledby='title desc' role='img'> <title id='title'>A bar chart showing information</title>\n";
+        String svg = "    <svg class='chart' width='420' height='" + diccionario.getElementos() * 20 + "' xmlns='http://www.w3.org/2000/svg' aria-labelledby='title desc' role='img'> <title id='title'>A bar chart showing information</title>\n";
         
         while (iteradorLLave.hasNext()) {
             String llave = iteradorLLave.next();
@@ -81,22 +83,22 @@ public class ConstruyeHTML {
             i += 20;
         }
         
-        return svg + "</svg>";
+        return svg + "    </svg>\n";
     }
 
     private static String barra(String llave, int y) {
-        return String.format("<g class='bar'>\n  <rect width='%1$s' height='19' y='%2$s'></rect>\n <text x='%5$s' y='%3$s' dy=''.35em'> %4$s </text> </g> \n", diccionario.get(llave) * 10, y, y + 13, llave, (diccionario.get(llave) * 10) + 10);
+        return String.format("      <g class='bar'>\n        <rect width='%1$s' height='19' y='%2$s'></rect>\n        <text x='%5$s' y='%3$s' dy=''.35em'> %4$s </text>\n      </g> \n", diccionario.get(llave) * 10, y, y + 13, llave, (diccionario.get(llave) * 10) + 10);
     }
 
     private static String generaCodigoHTML() {
-        return doctype + "<html>" + generaTitulo() + generaBody() + arvolRN + arvolAVl + "</html>";
+        return doctype + "<html>" + generaTitulo() + generaBody() + "</html>";
     }
 
     private static String generaBody() {
-        return "    <body>\n        " + body + "<br>\n" + generaBarraSVG() + "\n    </body>\n";
+        return "<body>\n    " + body + "<br>\n" + generaBarraSVG() + arvolRN + "\n" + arvolAVl +"\n</body>\n";
     }
 
     private static String generaTitulo() {
-        return "\n    <head>\n    " + "    <title> " + titulo + " </title>" + "\n    </head>\n";
+        return "\n<head>\n    " + "<title> " + titulo + " </title>" + "\n</head>\n";
     }
 }
