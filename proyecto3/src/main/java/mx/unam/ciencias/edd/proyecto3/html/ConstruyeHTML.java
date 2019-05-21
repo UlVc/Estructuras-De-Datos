@@ -8,7 +8,7 @@ import java.io.File;
 import java.util.Iterator;
 
 public class ConstruyeHTML {
-    
+
     private static Diccionario<String, Integer> diccionario = new Diccionario<String, Integer>();
     private static Lista<String> archivos = new Lista<String>();
     private static final String doctype = "<!DOCTYPE html>\n";
@@ -35,15 +35,15 @@ public class ConstruyeHTML {
 
     public static void generaHTML() {
         File newFolder = new File(directorio);
-        
+
         newFolder.mkdirs();
 
-        try {    
+        try {
             FileWriter fw = new FileWriter(directorio + titulo + ".html");
-            fw.write(generaCodigoHTML());    
-            fw.close();    
-        } catch (Exception e) { 
-            System.out.println("No se encontro ruta especificada."); 
+            fw.write(generaCodigoHTML());
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("No se encontro ruta especificada.");
         }
     }
 
@@ -52,7 +52,7 @@ public class ConstruyeHTML {
 
         for (String s : archivos) {
             int i = contadorElementos.getPrimero();
-            index += "    <a href='" + directorio + s + ".html'>" + s + "</a> Número de palabras en el archivo: " + i + " <br> \n";
+            index += "    <a href='" + s + ".html'>" + s + "</a> Número de palabras en el archivo: " + i + " <br> \n";
             contadorElementos.elimina(i);
         }
 
@@ -64,10 +64,10 @@ public class ConstruyeHTML {
 
         try {
             FileWriter fw = new FileWriter(directorio + "index.html");
-            fw.write(index);    
+            fw.write(index);
             fw.close();
-        } catch (Exception e) { 
-            System.out.println("No se encontro ruta especificada."); 
+        } catch (Exception e) {
+            System.out.println("No se encontro ruta especificada.");
         }
     }
 
@@ -76,13 +76,13 @@ public class ConstruyeHTML {
         int i = 0;
 
         String svg = "    <svg class='chart' width='420' height='" + diccionario.getElementos() * 20 + "' xmlns='http://www.w3.org/2000/svg' aria-labelledby='title desc' role='img'> <title id='title'>A bar chart showing information</title>\n";
-        
+
         while (iteradorLLave.hasNext()) {
             String llave = iteradorLLave.next();
             svg += barra(llave,i);
             i += 20;
         }
-        
+
         return svg + "    </svg>\n";
     }
 
