@@ -16,6 +16,10 @@ public class Proyecto3 {
     private static Lista<Diccionario<String, Integer>> diccionarios = new Lista<Diccionario<String, Integer>>();
 
     public static void main(String[] args) throws Exception {
+
+        pieChart pie = new pieChart(12.5);
+        pie.generaSVG();
+
         Lista<String> archivos = new Lista<String>();
         Lista<String> titulosLista = new Lista<String>();
         Lista<String> lista = new Lista<String>();
@@ -60,7 +64,7 @@ public class Proyecto3 {
     private static void html(String directorio, Lista<String> lista, String titulo) throws Exception {
         String cadena = "";
         String conteo = "";
-            
+
         for (String s : lista)
             cadena += ";" + s.toLowerCase().replace(".", "").trim().replace(" ", ";").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u").replace(",", "");
 
@@ -83,9 +87,9 @@ public class Proyecto3 {
             else
                 conteo += diccionario.get(llave) + " vez: " + llave + "<br>";
         }
-        
+
         // Falta hacer que sólo se impriman los 15 más importantes.
-        
+
         Diccionario<String, Integer> diccionarioAcotado = acotaDiccionario(diccionario);
 
         String avl = graficadora.construirEstructura(diccionarioAcotado, "ArbolAVL");
@@ -106,7 +110,7 @@ public class Proyecto3 {
         while (iteradorLLave.hasNext()) {
             String llave = iteradorLLave.next();
             aux.agrega(llave, diccionario.get(llave));
-            
+
             if (contador == 15)
                 break;
 
