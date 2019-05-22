@@ -17,7 +17,7 @@ public class Proyecto3 {
 
     public static void main(String[] args) throws Exception {
 
-        pieChart pie = new pieChart(12.5);
+        pieChart pie = new pieChart(49.6);
         pie.generaSVG();
 
         Lista<String> archivos = new Lista<String>();
@@ -132,5 +132,25 @@ public class Proyecto3 {
                 diccionario.agrega(array[i], 1);
 
         return diccionario;
+    }
+
+    private static Diccionario<String, Integer> ordena(Diccionario<String, Integer> diccionario) {
+        Lista<Integer> l = new Lista<Integer>();
+        Diccionario<String, Integer> aux = new Diccionario<String, Integer>();
+        Iterator<String> iteradorLLave = diccionario.iteradorLlaves();
+        int i = 0;
+
+        for (Integer i : diccionario)
+            l.agrega(i);
+
+        l = Lista.mergeSort(l).reversa();
+
+        while (iteradorLLave.hasNext()) {
+            String llave = iteradorLLave.next();
+            aux.agrega(llave, l.get(i));
+            i++;
+        }
+
+        return aux;
     }
 }
