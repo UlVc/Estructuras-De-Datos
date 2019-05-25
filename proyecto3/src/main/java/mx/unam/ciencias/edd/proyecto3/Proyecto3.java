@@ -22,7 +22,7 @@ public class Proyecto3 {
         String conteo = "";
 
         for (String s : lista)
-            cadena += ";" + s.toLowerCase().replace(".", "").trim().replace(" ", ";").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u").replace(",", "");
+            cadena += ";" + s.trim().toLowerCase().replace(".", "").replace(" ", ";").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u").replace(",", "").replace("?", "").replace("¿", "");
 
         // Se tiene problemas cuando el archivo tiene varias lineas vacias.
 
@@ -30,7 +30,7 @@ public class Proyecto3 {
 
         Diccionario<String, Integer> diccionario = cuentaPalabras(arrayElementos);
 
-        diccionario = ordena(diccionario);
+        //Lista<Lista<String>> elementos = ordena(diccionario);
 
         contadorElementos.agrega(diccionario.getElementos());
         diccionarios.agrega(diccionario);
@@ -51,7 +51,10 @@ public class Proyecto3 {
         String avl = graficadora.construirEstructura(diccionarioAcotado, "ArbolAVL");
         String arn = graficadora.construirEstructura(diccionarioAcotado, "ArbolRojinegro");
 
-        ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn);
+        int rebanadas = 4;
+        int[] porcentajes = new int[]{25, 25, 25, 25};
+
+        ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn, rebanadas, porcentajes);
         html.generaHTML();
     }
 
@@ -90,33 +93,51 @@ public class Proyecto3 {
         return diccionario;
     }
 
-    private static Diccionario<String, Integer> ordena(Diccionario<String, Integer> diccionario) {
+    private static Lista<Lista<String>> ordena(Diccionario<String, Integer> diccionario) {
+
         Lista<Integer> l = new Lista<Integer>();
-        Diccionario<String, Integer> aux = new Diccionario<String, Integer>();
-        Iterator<String> iteradorLLave = diccionario.iteradorLlaves();
-        int i = 0;
+        Lista<String> i = new Lista<String>();
+        Lista<String> s = new Lista<String>();
+        Lista<Lista<String>> aux = new Lista<Lista<String>>();
+        int longitud = diccionario.getElementos();
 
         for (Integer k : diccionario)
             l.agrega(k);
 
         l = Lista.mergeSort(l).reversa();
 
-        while (iteradorLLave.hasNext()) {
-            String llave = iteradorLLave.next();
-            aux.agrega(llave, l.get(i));
-            i++;
+        System.out.println(l);
+
+        for (int n = 0; n < longitud; n++) {
+            Iterator<String> iteradorLLave = diccionario.iteradorLlaves();
+
+            while (iteradorLLave.hasNext()) {
+                String llave = iteradorLLave.next();
+
+                if (diccionario.get(llave) == l.get(n)) {
+                    System.out.println(l.get(n) + " " + llave);
+
+                    i.agrega(Integer.toString(l.get(n)));
+                    s.agrega(llave);
+
+                    diccionario.elimina(llave);
+                    break;
+                }
+            }
         }
+
+        aux.agrega(s);
+        aux.agrega(i);
 
         return aux;
     }
 
     private static void obtenerArchivosYDirectorio(String[] args) {
-        for (int i = 0; i < args.length; i++) {
+        for (int i = 0; i < args.length; i++)
             if (args[i].equals("-o"))
                 directorio = args[i + 1];
             else
                 archivos.agrega(args[i]);
-        }
 
         archivos.elimina(directorio);
     }
@@ -125,10 +146,6 @@ public class Proyecto3 {
         Lista<String> titulosLista = new Lista<String>();
         Lista<String> lista = new Lista<String>();
         String cadena = "";
-
-        pieChart pie = new pieChart(49.6);
-        pie.generaSVG();
-
 
         obtenerArchivosYDirectorio(args);
 

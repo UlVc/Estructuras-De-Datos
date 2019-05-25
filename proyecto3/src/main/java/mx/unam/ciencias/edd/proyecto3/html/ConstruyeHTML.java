@@ -2,6 +2,7 @@ package mx.unam.ciencias.edd.proyecto3.html;
 
 import mx.unam.ciencias.edd.Diccionario;
 import mx.unam.ciencias.edd.Lista;
+import mx.unam.ciencias.edd.proyecto3.pieChart;
 
 import java.io.FileWriter;
 import java.io.File;
@@ -17,14 +18,19 @@ public class ConstruyeHTML {
     private static String directorio = "";
     private static String arvolAVl = "";
     private static String arvolRN = "";
+    private static String[] coloresRandom = new String[]{"#BB3D49", "#61C0BF", "#F04B27", "#EEC014", "#C014EE", "#69D78B", "#68F6C6", "#745D97", "#F07F47", "#F56767"};
+    private static int rebanadas;
+    private static int[] porcentajes;
 
-    public ConstruyeHTML(String body, String titulo, String directorio, Diccionario<String, Integer> diccionario, String arvolAVl, String arvolRN) {
+    public ConstruyeHTML(String body, String titulo, String directorio, Diccionario<String, Integer> diccionario, String arvolAVl, String arvolRN, int rebanadas, int[] porcentajes) {
         this.body = body;
         this.titulo = titulo;
         this.directorio = directorio;
         this.diccionario = diccionario;
         this.arvolAVl = arvolAVl;
         this.arvolRN = arvolRN;
+        this.rebanadas = rebanadas;
+        this.porcentajes = porcentajes;
     }
 
     public ConstruyeHTML(Lista<String> archivos, String directorio) {
@@ -94,8 +100,22 @@ public class ConstruyeHTML {
         return doctype + "<html>" + generaTitulo() + generaBody() + "</html>";
     }
 
+    private static String generaPieChart() {
+        pieChart pie = new pieChart(rebanadas);
+        String s = "    <svg style='width: 230px; height: 230px;'>\n";
+
+        for (int i = 0; i < rebanadas; i++) {
+            int numeroRandom = (int) Math.floor(Math.random() * (10 - 0 + 1) + 0);
+            String color = coloresRandom[numeroRandom];
+
+            s += pie.generaSVG(porcentajes[i], i + 1, color);
+        }
+
+        return s+= "    </svg>";
+    }
+
     private static String generaBody() {
-        return "<body>\n    " + body + "<br>\n" + generaBarraSVG() + arvolRN + "\n" + arvolAVl +"\n</body>\n";
+        return "<body>\n    " + body + "<br>\n" + generaBarraSVG() + generaPieChart() + arvolRN + "\n" + arvolAVl + "\n</body>\n";
     }
 
     private static String generaTitulo() {
