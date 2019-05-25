@@ -14,52 +14,8 @@ public class Proyecto3 {
     private static GraficadoraEDD graficadora = new GraficadoraEDD();
     private static Lista<Integer> contadorElementos = new Lista<Integer>();
     private static Lista<Diccionario<String, Integer>> diccionarios = new Lista<Diccionario<String, Integer>>();
-
-    public static void main(String[] args) throws Exception {
-
-        pieChart pie = new pieChart(49.6);
-        pie.generaSVG();
-
-        Lista<String> archivos = new Lista<String>();
-        Lista<String> titulosLista = new Lista<String>();
-        Lista<String> lista = new Lista<String>();
-
-        String directorio = "";
-        String cadena = "";
-
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("-o"))
-                directorio = args[i + 1];
-            else
-                archivos.agrega(args[i]);
-        }
-
-        archivos.elimina(directorio);
-
-        for (String s : archivos) {
-            String[] directorioTitulo = s.split("/");
-            String tituloConExtension = directorioTitulo[directorioTitulo.length - 1];
-            String titulo = tituloConExtension.substring(0, tituloConExtension.length() - 4);
-            titulosLista.agrega(titulo);
-
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(s));
-                while ((cadena = br.readLine()) != null)
-                    lista.agrega(cadena.trim());
-            } catch (Exception e) {
-                System.out.println("Introduzca de manera correcta un archivo de texto.");
-                System.exit(-1);
-            }
-
-            html(directorio, lista, titulo);
-            lista.limpia();
-        }
-
-        String graficaSVG = graficadora.construirEstructuraGrafica(diccionarios, titulosLista, contadorElementos);
-
-        ConstruyeHTML html = new ConstruyeHTML(titulosLista, directorio);
-        html.generadorIndex(contadorElementos, graficaSVG);
-    }
+    private static String directorio = "";
+    private static Lista<String> archivos = new Lista<String>();
 
     private static void html(String directorio, Lista<String> lista, String titulo) throws Exception {
         String cadena = "";
@@ -152,5 +108,52 @@ public class Proyecto3 {
         }
 
         return aux;
+    }
+
+    private static void obtenerArchivosYDirectorio(String[] args) {
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("-o"))
+                directorio = args[i + 1];
+            else
+                archivos.agrega(args[i]);
+        }
+
+        archivos.elimina(directorio);
+    }
+
+    public static void main(String[] args) throws Exception {
+        Lista<String> titulosLista = new Lista<String>();
+        Lista<String> lista = new Lista<String>();
+        String cadena = "";
+
+        pieChart pie = new pieChart(49.6);
+        pie.generaSVG();
+
+
+        obtenerArchivosYDirectorio(args);
+
+        for (String s : archivos) {
+            String[] directorioTitulo = s.split("/");
+            String tituloConExtension = directorioTitulo[directorioTitulo.length - 1];
+            String titulo = tituloConExtension.substring(0, tituloConExtension.length() - 4);
+            titulosLista.agrega(titulo);
+
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(s));
+                while ((cadena = br.readLine()) != null)
+                    lista.agrega(cadena.trim());
+            } catch (Exception e) {
+                System.out.println("Introduzca de manera correcta un archivo de texto.");
+                System.exit(-1);
+            }
+
+            html(directorio, lista, titulo);
+            lista.limpia();
+        }
+
+        String graficaSVG = graficadora.construirEstructuraGrafica(diccionarios, titulosLista, contadorElementos);
+
+        ConstruyeHTML html = new ConstruyeHTML(titulosLista, directorio);
+        html.generadorIndex(contadorElementos, graficaSVG);
     }
 }
