@@ -74,6 +74,8 @@ public class Proyecto3 {
 
         Diccionario<String, Integer> diccionario = cuentaPalabras(arrayElementos);
 
+        diccionario = ordena(diccionario);
+
         contadorElementos.agrega(diccionario.getElementos());
         diccionarios.agrega(diccionario);
 
@@ -87,8 +89,6 @@ public class Proyecto3 {
             else
                 conteo += diccionario.get(llave) + " vez: " + llave + "<br>";
         }
-
-        // Falta hacer que sólo se impriman los 15 más importantes.
 
         Diccionario<String, Integer> diccionarioAcotado = acotaDiccionario(diccionario);
 
@@ -140,8 +140,8 @@ public class Proyecto3 {
         Iterator<String> iteradorLLave = diccionario.iteradorLlaves();
         int i = 0;
 
-        for (Integer i : diccionario)
-            l.agrega(i);
+        for (Integer k : diccionario)
+            l.agrega(k);
 
         l = Lista.mergeSort(l).reversa();
 
