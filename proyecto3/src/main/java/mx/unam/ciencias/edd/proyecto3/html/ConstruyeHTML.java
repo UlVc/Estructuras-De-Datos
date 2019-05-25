@@ -18,7 +18,6 @@ public class ConstruyeHTML {
     private static String directorio = "";
     private static String arvolAVl = "";
     private static String arvolRN = "";
-    private static String[] coloresRandom = new String[]{"#BB3D49", "#61C0BF", "#F04B27", "#EEC014", "#C014EE", "#69D78B", "#68F6C6", "#745D97", "#F07F47", "#F56767"};
     private static int rebanadas;
     private static int[] porcentajes;
 
@@ -40,16 +39,18 @@ public class ConstruyeHTML {
     }
 
     public static void generaHTML() {
-        File newFolder = new File(directorio);
+        File newFolder = new File(directorio); // Falta agregar el caso cuando se pasa un nombre por la consola sin "/".
 
         newFolder.mkdirs();
+
+        String xd = generaPieChart();
 
         try {
             FileWriter fw = new FileWriter(directorio + titulo + ".html");
             fw.write(generaCodigoHTML());
             fw.close();
         } catch (Exception e) {
-            System.out.println("No se encontro ruta especificada.");
+            System.out.println("No se encontró ruta especificada.");
         }
     }
 
@@ -102,16 +103,26 @@ public class ConstruyeHTML {
 
     private static String generaPieChart() {
         pieChart pie = new pieChart(rebanadas);
-        String s = "    <svg style='width: 230px; height: 230px;'>\n";
+        String s = "    <svg style='width: 230px; height: 230px;' xmlns='http://www.w3.org/2000/svg'>\n";
+        Lista<String> colores = new Lista<String>();
+
+        colores.agrega("#BB3D49");
+        colores.agrega("#61C0BF");
+        colores.agrega("#F04B27");
+        colores.agrega("#EEC014");
+        colores.agrega("#C014EE");
+        colores.agrega("#69D78B");
+        colores.agrega("#68F6C6");
+        colores.agrega("#745D97");
+        colores.agrega("#F07F47");
+        colores.agrega("#F56767");
 
         for (int i = 0; i < rebanadas; i++) {
-            int numeroRandom = (int) Math.floor(Math.random() * (10 - 0 + 1) + 0);
-            String color = coloresRandom[numeroRandom];
-
+            String color = colores.get(i);
             s += pie.generaSVG(porcentajes[i], i + 1, color);
         }
 
-        return s+= "    </svg>";
+        return s+= "    </svg>\n";
     }
 
     private static String generaBody() {

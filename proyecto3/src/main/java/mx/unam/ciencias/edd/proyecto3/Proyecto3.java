@@ -51,11 +51,21 @@ public class Proyecto3 {
         String avl = graficadora.construirEstructura(diccionarioAcotado, "ArbolAVL");
         String arn = graficadora.construirEstructura(diccionarioAcotado, "ArbolRojinegro");
 
-        int rebanadas = 4;
-        int[] porcentajes = new int[]{25, 25, 25, 25};
+        int rebanadas = diccionario.getElementos();
+        int aux = calculaPorcentaje(rebanadas);
+        int[] porcentajes = new int[rebanadas];
+        
+        for (int i = 0; i < rebanadas; i++)
+            porcentajes[i] = aux;
 
         ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn, rebanadas, porcentajes);
         html.generaHTML();
+    }
+
+    private static int calculaPorcentaje(int elementos) {
+        if (elementos <= 10)
+            return 100 / elementos;
+        return 25;
     }
 
     private static Diccionario<String, Integer> acotaDiccionario(Diccionario<String, Integer> diccionario) {
