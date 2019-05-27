@@ -55,11 +55,8 @@ public class Proyecto3 {
 
         double[] porcentajes = calculaPorcentaje(listaRepeticiones);
 
-        for (Double i : porcentajes)
-            System.out.println(i);
-
-        //ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn, rebanadas, porcentajes);
-        //html.generaHTML();
+        ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn, porcentajes);
+        html.generaHTML();
     }
 
     private static Lista<Integer> obtenListaRepeticiones(Diccionario<String, Integer> diccionario) {
@@ -74,7 +71,7 @@ public class Proyecto3 {
     }
 
     private static double[] calculaPorcentaje(Lista<Integer> repeticiones) {
-        int n = 0;
+        double n = 0;
 
         for (Integer i : repeticiones)
             n += i;

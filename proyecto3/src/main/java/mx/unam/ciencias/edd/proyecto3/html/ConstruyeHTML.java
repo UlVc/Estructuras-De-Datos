@@ -19,16 +19,16 @@ public class ConstruyeHTML {
     private static String arvolAVl = "";
     private static String arvolRN = "";
     private static int rebanadas;
-    private static int[] porcentajes;
+    private static double[] porcentajes;
 
-    public ConstruyeHTML(String body, String titulo, String directorio, Diccionario<String, Integer> diccionario, String arvolAVl, String arvolRN, int rebanadas, int[] porcentajes) {
+    public ConstruyeHTML(String body, String titulo, String directorio, Diccionario<String, Integer> diccionario, String arvolAVl, String arvolRN, double[] porcentajes) {
         this.body = body;
         this.titulo = titulo;
         this.directorio = directorio;
         this.diccionario = diccionario;
         this.arvolAVl = arvolAVl;
         this.arvolRN = arvolRN;
-        this.rebanadas = rebanadas;
+        this.rebanadas = porcentajes.length;
         this.porcentajes = porcentajes;
     }
 
@@ -42,8 +42,6 @@ public class ConstruyeHTML {
         File newFolder = new File(directorio); // Falta agregar el caso cuando se pasa un nombre por la consola sin "/".
 
         newFolder.mkdirs();
-
-        String xd = generaPieChart();
 
         try {
             FileWriter fw = new FileWriter(directorio + titulo + ".html");
