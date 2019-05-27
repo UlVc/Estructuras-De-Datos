@@ -51,21 +51,62 @@ public class Proyecto3 {
         String avl = graficadora.construirEstructura(diccionarioAcotado, "ArbolAVL");
         String arn = graficadora.construirEstructura(diccionarioAcotado, "ArbolRojinegro");
 
-        int rebanadas = diccionario.getElementos();
-        int aux = calculaPorcentaje(rebanadas);
-        int[] porcentajes = new int[rebanadas];
-        
-        for (int i = 0; i < rebanadas; i++)
-            porcentajes[i] = aux;
+        Lista<Integer> listaRepeticiones = obtenListaRepeticiones(diccionario);
 
-        ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn, rebanadas, porcentajes);
-        html.generaHTML();
+        double[] porcentajes = calculaPorcentaje(listaRepeticiones);
+
+        for (Double i : porcentajes)
+            System.out.println(i);
+
+        //ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn, rebanadas, porcentajes);
+        //html.generaHTML();
     }
 
-    private static int calculaPorcentaje(int elementos) {
-        if (elementos <= 10)
-            return 100 / elementos;
-        return 25;
+    private static Lista<Integer> obtenListaRepeticiones(Diccionario<String, Integer> diccionario) {
+        Lista<Integer> l = new Lista<Integer>();
+
+        for (Integer k : diccionario)
+            l.agrega(k);
+
+        l = Lista.mergeSort(l).reversa();
+
+        return l;
+    }
+
+    private static double[] calculaPorcentaje(Lista<Integer> repeticiones) {
+        int n = 0;
+
+        for (Integer i : repeticiones)
+            n += i;
+
+        int[] rebanadas = obtenElementosImportantes(repeticiones);
+        double[] aux = new double[rebanadas.length];
+
+        for (int i = 0; i < aux.length; i++)
+            aux[i] = (rebanadas[i] * 100) / n;
+
+        return aux;
+    }
+
+    private static int[] obtenElementosImportantes(Lista<Integer> lista) {
+        int longitud = 0;
+
+        if (lista.getElementos() < 10)
+            longitud = lista.getElementos();
+        else
+            longitud = 10;
+
+        int[] aux = new int[longitud];
+
+        for (int x = 0; x < longitud - 1; x++) {
+            aux[x] = lista.get(x);
+            lista.elimina(lista.get(x));
+        }
+
+        for (Integer k : lista)
+            aux[longitud - 1] += k;
+
+        return aux;
     }
 
     private static Diccionario<String, Integer> acotaDiccionario(Diccionario<String, Integer> diccionario) {
@@ -104,7 +145,6 @@ public class Proyecto3 {
     }
 
     private static Lista<Lista<String>> ordena(Diccionario<String, Integer> diccionario) {
-
         Lista<Integer> l = new Lista<Integer>();
         Lista<String> i = new Lista<String>();
         Lista<String> s = new Lista<String>();
