@@ -20,8 +20,9 @@ public class ConstruyeHTML {
     private static String arvolRN = "";
     private static int rebanadas;
     private static double[] porcentajes;
+    private static Lista<String> listaElementos;
 
-    public ConstruyeHTML(String body, String titulo, String directorio, Diccionario<String, Integer> diccionario, String arvolAVl, String arvolRN, double[] porcentajes) {
+    public ConstruyeHTML(String body, String titulo, String directorio, Diccionario<String, Integer> diccionario, String arvolAVl, String arvolRN, double[] porcentajes, Lista<String> listaElementos) {
         this.body = body;
         this.titulo = titulo;
         this.directorio = directorio;
@@ -30,6 +31,7 @@ public class ConstruyeHTML {
         this.arvolRN = arvolRN;
         this.rebanadas = porcentajes.length;
         this.porcentajes = porcentajes;
+        this.listaElementos = listaElementos;
     }
 
     public ConstruyeHTML(Lista<String> archivos, String directorio) {
@@ -84,7 +86,7 @@ public class ConstruyeHTML {
 
         while (iteradorLLave.hasNext()) {
             String llave = iteradorLLave.next();
-            svg += barra(llave,i);
+            svg += barra(llave, i);
             i += 20;
         }
 
@@ -101,7 +103,7 @@ public class ConstruyeHTML {
 
     private static String generaPieChart() {
         pieChart pie = new pieChart(rebanadas);
-        String s = "    <svg style='width: 230px; height: 230px;' xmlns='http://www.w3.org/2000/svg'>\n";
+        String s = "    <svg style='width: 400px; height: 300px;' xmlns='http://www.w3.org/2000/svg'>\n";
         Lista<String> colores = new Lista<String>();
 
         colores.agrega("#BB3D49");
@@ -117,7 +119,7 @@ public class ConstruyeHTML {
 
         for (int i = 0; i < rebanadas; i++) {
             String color = colores.get(i);
-            s += pie.generaSVG(porcentajes[i], i + 1, color);
+            s += pie.generaSVG(porcentajes[i], i + 1, color, listaElementos.get(i));
         }
 
         return s+= "    </svg>\n";

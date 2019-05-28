@@ -52,10 +52,13 @@ public class Proyecto3 {
         String arn = graficadora.construirEstructura(diccionarioAcotado, "ArbolRojinegro");
 
         Lista<Integer> listaRepeticiones = obtenListaRepeticiones(diccionario);
+        Lista<String> listaElementos = obtenListaElementos(diccionario);
+
+        diccionario = cuentaPalabras(arrayElementos);
 
         double[] porcentajes = calculaPorcentaje(listaRepeticiones);
 
-        ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn, porcentajes);
+        ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn, porcentajes, listaElementos);
         html.generaHTML();
     }
 
@@ -68,6 +71,28 @@ public class Proyecto3 {
         l = Lista.mergeSort(l).reversa();
 
         return l;
+    }
+
+    private static Lista<String> obtenListaElementos(Diccionario<String, Integer> diccionario) {
+        Lista<Integer> l = obtenListaRepeticiones(diccionario);
+        Lista<String> s = new Lista<String>();
+        int longitud = diccionario.getElementos();
+
+        for (int n = 0; n < longitud; n++) {
+            Iterator<String> iteradorLLave = diccionario.iteradorLlaves();
+
+            while (iteradorLLave.hasNext()) {
+                String llave = iteradorLLave.next();
+
+                if (diccionario.get(llave) == l.get(n)) {
+                    s.agrega(llave);
+                    diccionario.elimina(llave);
+                    break;
+                }
+            }
+        }
+
+        return s;
     }
 
     private static double[] calculaPorcentaje(Lista<Integer> repeticiones) {
@@ -95,10 +120,11 @@ public class Proyecto3 {
 
         int[] aux = new int[longitud];
 
-        for (int x = 0; x < longitud - 1; x++) {
+        for (int x = 0; x < (longitud - 1); x++)
             aux[x] = lista.get(x);
-            lista.elimina(lista.get(x));
-        }
+
+        for (Integer i : aux)
+            lista.elimina(i);
 
         for (Integer k : lista)
             aux[longitud - 1] += k;
