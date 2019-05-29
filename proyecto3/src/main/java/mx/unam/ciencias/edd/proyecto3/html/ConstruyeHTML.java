@@ -99,7 +99,7 @@ public class ConstruyeHTML {
 
         aux = Lista.mergeSort(aux).reversa();
 
-        String svg = "    <svg class='chart' width='" + aux.get(0) * 15 + "' height='" + numeroDeBarras * 20 + "' xmlns='http://www.w3.org/2000/svg' aria-labelledby='title desc' role='img'> <title id='title'>A bar chart showing information</title>\n";
+        String svg = "    <svg class='chart' width='" + aux.get(0) * 15 + "' height='" + ((rebanadas * 20) + 20) + "' xmlns='http://www.w3.org/2000/svg' aria-labelledby='title desc' role='img'> <title id='title'>A bar chart showing information</title>\n";
 
         for (int i = 0; i < rebanadas; i++) {
             String color = colores.get(i);
@@ -151,16 +151,16 @@ public class ConstruyeHTML {
     private static Lista<String> colores() {
         Lista<String> colores = new Lista<String>();
 
-        colores.agrega("#BB3D49");
-        colores.agrega("#61C0BF");
-        colores.agrega("#F04B27");
-        colores.agrega("#EEC014");
-        colores.agrega("#C014EE");
-        colores.agrega("#69D78B");
-        colores.agrega("#68F6C6");
-        colores.agrega("#745D97");
-        colores.agrega("#F07F47");
-        colores.agrega("#F56767");
+        colores.agrega("#EF9A9A");
+        colores.agrega("#F06292");
+        colores.agrega("#AB47BC");
+        colores.agrega("#7E57C2");
+        colores.agrega("#7986CB");
+        colores.agrega("#0097A7");
+        colores.agrega("#26A69A");
+        colores.agrega("#81C784");
+        colores.agrega("#4CAF50");
+        colores.agrega("#DCE775");
 
         return colores;
     }

@@ -16,9 +16,7 @@ public class GraficaAuxSVG extends Grafica {
     private static VerticeGrafica<String> vi = null;
     private static VerticeCoordenada coordenadai;
 
-    /**
-     * Clase auxiliar para dibujar las graficas.
-     */
+    /* Clase auxiliar para dibujar las graficas. */
     private static class VerticeCoordenada implements Comparable<VerticeCoordenada> {
         
         VerticeGrafica<String> vertice;

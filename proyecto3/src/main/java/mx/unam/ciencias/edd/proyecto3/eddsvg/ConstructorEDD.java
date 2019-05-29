@@ -58,8 +58,7 @@ public class ConstructorEDD {
     public static Grafica<Integer> construirGraficaEntero(Lista<Integer> elementos) throws NumberFormatException {
         Grafica<Integer> g = new Grafica<Integer>();
 
-        // Si dos archivos o más tienen el mismo número de palabras, truena cuando agregemos los elementos :(
-        for (Integer i : elementos)
+        for (int i = 1; i <= elementos.getElementos(); i++)
             g.agrega(i);
 
         return g;
