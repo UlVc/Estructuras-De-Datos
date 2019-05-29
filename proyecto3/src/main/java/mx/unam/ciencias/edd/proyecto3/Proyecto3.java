@@ -192,8 +192,12 @@ public class Proyecto3 {
 
             try {
                 BufferedReader br = new BufferedReader(new FileReader(s));
+                
                 while ((cadena = br.readLine()) != null)
-                    lista.agrega(cadena.trim());
+                    if(cadena.trim().length() > 0)
+                        lista.agrega(cadena.trim());
+
+                br.close();
             } catch (Exception e) {
                 System.out.println("Introduzca de manera correcta un archivo de texto.");
                 System.exit(-1);
