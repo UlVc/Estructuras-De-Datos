@@ -10,7 +10,7 @@ public class MonticuloArreglo<T extends ComparableIndexable<T>>
 
     /* Número de elementos en el arreglo. */
     private int elementos;
-    /* Usamos un truco pa ra poder utilizar arreglos genéricos. */
+    /* Usamos un truco para poder utilizar arreglos genéricos. */
     private T[] arreglo;
 
     /* Truco para crear arreglos genéricos. Es necesario hacerlo así por cómo
@@ -37,14 +37,14 @@ public class MonticuloArreglo<T extends ComparableIndexable<T>>
      * @param n el número de elementos en el iterable.
      */
     public MonticuloArreglo(Iterable<T> iterable, int n) {
-        arreglo = nuevoArreglo(n);
+        this.arreglo = this.nuevoArreglo(n);
         int i = 0;
+        this.elementos = n;
         for(T e: iterable) {
-            arreglo[i] = e;
+            this.arreglo[i] = e;
             e.setIndice(i);
-            i+=1;
+            i += 1;
         }
-        elementos = n;
     }
 
     /**
@@ -53,28 +53,18 @@ public class MonticuloArreglo<T extends ComparableIndexable<T>>
      * @throws IllegalStateException si el montículo es vacío.
      */
     @Override public T elimina() {
-        if(elementos == 0) throw new IllegalStateException();
-
-        T e = null;
-        for(int n=0;n<arreglo.length;n++) {
-            if(arreglo[n] != null) {
-                e = arreglo[n];
-                break;
+        if(this.elementos == 0) { throw new IllegalStateException(); }
+        T minimo = null;
+        for(int i = 0; i < this.arreglo.length; i++) {
+            if(minimo == null) { minimo = this.arreglo[i]; }
+            else if (minimo != null && this.arreglo[i] != null) {
+                minimo = minimo.compareTo(this.arreglo[i]) < 0 ? minimo : this.arreglo[i];
             }
         }
-        int indice = e.getIndice();
-        for(int k=1;k<arreglo.length;k++) {
-            if(arreglo[k] != null) {
-                if(e.compareTo(arreglo[k])>0){
-                    e = arreglo[k];
-                    indice = arreglo[k].getIndice();
-                }
-            }
-        }
-        arreglo[indice].setIndice(-1);
-        arreglo[indice]=null;
-        elementos--;
-        return e;
+        this.arreglo[minimo.getIndice()] = null;
+        minimo.setIndice(-1);
+        this.elementos -= 1;
+        return minimo;
     }
 
     /**
@@ -85,16 +75,17 @@ public class MonticuloArreglo<T extends ComparableIndexable<T>>
      *         que el número de elementos.
      */
     @Override public T get(int i) {
-        if(i<0 || i >= arreglo.length) throw new NoSuchElementException();
-        return arreglo[i];
+        if(i < 0 || i >= this.arreglo.length) { throw new NoSuchElementException(); }
+        return this.arreglo[i];
     }
+
     /**
      * Nos dice si el montículo es vacío.
      * @return <tt>true</tt> si ya no hay elementos en el montículo,
      *         <tt>false</tt> en otro caso.
      */
     @Override public boolean esVacia() {
-        return elementos == 0;
+        return this.elementos == 0;
     }
 
     /**
@@ -102,6 +93,6 @@ public class MonticuloArreglo<T extends ComparableIndexable<T>>
      * @return el número de elementos en el montículo.
      */
     @Override public int getElementos() {
-        return elementos;
+        return this.elementos;
     }
 }

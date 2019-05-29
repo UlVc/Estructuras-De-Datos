@@ -68,9 +68,8 @@ public class Proyecto3 {
     private static Lista<Integer> obtenListaRepeticiones(Diccionario<String, Integer> diccionario) {
         Lista<Integer> l = new Lista<Integer>();
 
-        for (Integer k : diccionario) {
+        for (Integer k : diccionario)
             l.agrega(k);
-        }
 
         l = Lista.mergeSort(l).reversa();
 
@@ -194,7 +193,7 @@ public class Proyecto3 {
                 BufferedReader br = new BufferedReader(new FileReader(s));
                 
                 while ((cadena = br.readLine()) != null)
-                    if(cadena.trim().length() > 0)
+                    if (cadena.trim().length() > 0)
                         lista.agrega(cadena.trim());
 
                 br.close();

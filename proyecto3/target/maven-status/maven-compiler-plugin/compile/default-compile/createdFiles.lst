@@ -20,6 +20,7 @@ mx/unam/ciencias/edd/MonticuloDijkstra.class
 mx/unam/ciencias/edd/AlgoritmoDispersor.class
 mx/unam/ciencias/edd/Arreglos.class
 mx/unam/ciencias/edd/MonticuloMinimo$1.class
+mx/unam/ciencias/edd/Grafica$BuscadorCamino.class
 mx/unam/ciencias/edd/proyecto3/eddsvg/SVG/ArbolBinarioAuxSVG.class
 mx/unam/ciencias/edd/proyecto3/eddsvg/SVG/EstructurasDatosSVG.class
 mx/unam/ciencias/edd/Diccionario.class
@@ -50,11 +51,13 @@ mx/unam/ciencias/edd/ArbolBinarioCompleto.class
 mx/unam/ciencias/edd/proyecto3/pieChart.class
 mx/unam/ciencias/edd/MonticuloMinimo$Iterador.class
 mx/unam/ciencias/edd/Lista$Iterador.class
+mx/unam/ciencias/edd/Grafica$Vecino.class
 mx/unam/ciencias/edd/ComparableIndexable.class
 mx/unam/ciencias/edd/Dispersor.class
 mx/unam/ciencias/edd/AccionVerticeArbolBinario.class
 mx/unam/ciencias/edd/proyecto3/eddsvg/EstructurasDeDatos.class
 mx/unam/ciencias/edd/ValorIndexable.class
+mx/unam/ciencias/edd/Conjunto.class
 mx/unam/ciencias/edd/MeteSaca.class
 mx/unam/ciencias/edd/proyecto3/eddsvg/GraficadoraEDD.class
 mx/unam/ciencias/edd/Lista.class
