@@ -30,8 +30,6 @@ public class Proyecto3 {
 
         Diccionario<String, Integer> diccionario = cuentaPalabras(arrayElementos);
 
-        //Lista<Lista<String>> elementos = ordena(diccionario);
-
         contadorElementos.agrega(diccionario.getElementos());
         diccionarios.agrega(diccionario);
 
@@ -133,22 +131,15 @@ public class Proyecto3 {
     }
 
     private static Diccionario<String, Integer> acotaDiccionario(Diccionario<String, Integer> diccionario) {
-        if (diccionario.getElementos() < 14)
+        if (diccionario.getElementos() < 16)
             return diccionario;
 
+        Lista<Integer> i = obtenListaRepeticiones(diccionario);
+        Lista<String> s = obtenListaElementos(diccionario);
         Diccionario<String, Integer> aux = new Diccionario<String, Integer>();
-        Iterator<String> iteradorLLave = diccionario.iteradorLlaves();
-        int contador = 1;
 
-        while (iteradorLLave.hasNext()) {
-            String llave = iteradorLLave.next();
-            aux.agrega(llave, diccionario.get(llave));
-
-            if (contador == 15)
-                break;
-
-            contador++;
-        }
+        for (int j = 0; j < 15; j++)
+            aux.agrega(s.get(j), i.get(j));
 
         return aux;
     }
@@ -165,44 +156,6 @@ public class Proyecto3 {
                 diccionario.agrega(array[i], 1);
 
         return diccionario;
-    }
-
-    private static Lista<Lista<String>> ordena(Diccionario<String, Integer> diccionario) {
-        Lista<Integer> l = new Lista<Integer>();
-        Lista<String> i = new Lista<String>();
-        Lista<String> s = new Lista<String>();
-        Lista<Lista<String>> aux = new Lista<Lista<String>>();
-        int longitud = diccionario.getElementos();
-
-        for (Integer k : diccionario)
-            l.agrega(k);
-
-        l = Lista.mergeSort(l).reversa();
-
-        System.out.println(l);
-
-        for (int n = 0; n < longitud; n++) {
-            Iterator<String> iteradorLLave = diccionario.iteradorLlaves();
-
-            while (iteradorLLave.hasNext()) {
-                String llave = iteradorLLave.next();
-
-                if (diccionario.get(llave) == l.get(n)) {
-                    System.out.println(l.get(n) + " " + llave);
-
-                    i.agrega(Integer.toString(l.get(n)));
-                    s.agrega(llave);
-
-                    diccionario.elimina(llave);
-                    break;
-                }
-            }
-        }
-
-        aux.agrega(s);
-        aux.agrega(i);
-
-        return aux;
     }
 
     private static void obtenerArchivosYDirectorio(String[] args) {
