@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import mx.unam.ciencias.edd.*;
-import mx.unam.ciencias.edd.proyecto3.eddsvg.Indexable;
 
 /* Clase para construir las Estructuras de Datos e imprimpirlas en un formato SVG. */
 public class ConstructorEDD {

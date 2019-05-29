@@ -24,17 +24,32 @@ public class pieChart {
       return s;
     }
 
-    private double[] calcularPorcion(double porcentaje) {
+    private double[] calcularPorcion(double porcentajeAngulo) {
 
-        double z = Math.pow(115,2) + Math.pow(115,2) - (2 * 115 * 115 * Math.cos(Math.toRadians(porcentaje)));
+        double z = Math.pow(115,2) + Math.pow(115,2) - (2 * 115 * 115 * Math.cos(Math.toRadians(porcentajeAngulo)));
         z = Math.sqrt(z);
 
-        double x = 115 * Math.sin(Math.toRadians(porcentaje));
+        double x = 115 * Math.sin(Math.toRadians(porcentajeAngulo));
 
         double y = Math.pow(z, 2) - Math.pow(x, 2);
         y = Math.sqrt(y);
 
         x += 115;
+
+        /*if (porcentajeAngulo > 89)
+            x = 180 - porcentajeAngulo;
+        if (porcentajeAngulo > 179 && porcentajeAngulo < 271){
+            x = porcentajeAngulo - 180;
+            z = 360 - porcentajeAngulo;
+            y = Math.pow(z, 2) - Math.pow(x, 2);
+            y = Math.sqrt(y);
+        }
+        if (porcentajeAngulo > 179 && porcentajeAngulo > 270){
+            x = 360 - porcentajeAngulo;
+            z = 360 - porcentajeAngulo;
+            y = Math.pow(z, 2) - Math.pow(x, 2);
+            y = Math.sqrt(y);
+        }*/
 
         return new double[]{x, y};
     }
