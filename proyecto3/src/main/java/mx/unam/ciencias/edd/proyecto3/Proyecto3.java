@@ -15,7 +15,6 @@ public class Proyecto3 {
     private static Lista<Integer> contadorElementos = new Lista<Integer>();
     private static Lista<Diccionario<String, Integer>> diccionarios = new Lista<Diccionario<String, Integer>>();
     private static String directorio = "";
-    private static Lista<String> archivos = new Lista<String>();
 
     private static void html(String directorio, Lista<String> lista, String titulo) throws Exception {
         String cadena = "";
@@ -164,14 +163,28 @@ public class Proyecto3 {
         return diccionario;
     }
 
-    private static void obtenerArchivosYDirectorio(String[] args) {
+    private static Lista<String> obtenerArchivosYDirectorio(String[] args) {
+        Lista<String> archivos = new Lista<String>();
+
+        if (args.length < 1) {
+            System.out.println("Introduzca archivos y la bandera -o y después el nombre del directorio.");
+            System.exit(-1);
+        }
+
         for (int i = 0; i < args.length; i++)
             if (args[i].equals("-o"))
                 directorio = args[i + 1];
             else
                 archivos.agrega(args[i]);
 
+        if (directorio.equals("")) {
+            System.out.println("Introduzca la bandera -o y después el nombre del directorio.");
+            System.exit(-1);
+        }
+
         archivos.elimina(directorio);
+
+        return archivos;
     }
 
     public static void main(String[] args) throws Exception {
@@ -179,11 +192,18 @@ public class Proyecto3 {
         Lista<String> lista = new Lista<String>();
         String cadena = "";
 
-        obtenerArchivosYDirectorio(args);
+        Lista<String> archivos = obtenerArchivosYDirectorio(args);
 
         for (String s : archivos) {
             String[] directorioTitulo = s.split("/");
             String tituloConExtension = directorioTitulo[directorioTitulo.length - 1];
+            String txt = tituloConExtension.substring(tituloConExtension.length() - 3, tituloConExtension.length());
+
+            if (!txt.equals("txt")) {
+                System.out.println("Introduzca de manera correcta un archivo de texto.");
+                System.exit(-1);
+            }
+
             String titulo = tituloConExtension.substring(0, tituloConExtension.length() - 4);
             titulosLista.agrega(titulo);
 
@@ -195,6 +215,11 @@ public class Proyecto3 {
                         lista.agrega(cadena.trim());
 
                 br.close();
+
+                if (lista.esVacia()) {
+                    System.out.println("Introduzca texto en el archivo " + s);
+                    System.exit(-1);
+                }
             } catch (Exception e) {
                 System.out.println("Introduzca de manera correcta un archivo de texto.");
                 System.exit(-1);
