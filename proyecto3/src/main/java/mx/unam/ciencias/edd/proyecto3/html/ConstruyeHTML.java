@@ -21,6 +21,7 @@ public class ConstruyeHTML {
     private static int rebanadas;
     private static double[] porcentajes;
     private static Lista<String> listaElementos;
+    private static int numeroDeBarras = 0;
 
     public ConstruyeHTML(String body, String titulo, String directorio, Diccionario<String, Integer> diccionario, String arvolAVl, String arvolRN, double[] porcentajes, Lista<String> listaElementos) {
         this.body = body;
@@ -79,22 +80,28 @@ public class ConstruyeHTML {
     }
 
     private static String generaBarraSVG() {
-        Iterator<String> iteradorLLave = diccionario.iteradorLlaves();
-        int i = 0;
+        int y = 0;
+        numeroDeBarras = diccionario.getElementos() - 1;
+        Lista<String> colores = colores();
 
-        String svg = "    <svg class='chart' width='420' height='" + diccionario.getElementos() * 20 + "' xmlns='http://www.w3.org/2000/svg' aria-labelledby='title desc' role='img'> <title id='title'>A bar chart showing information</title>\n";
+        String svg = "    <svg class='chart' width='420' height='" + numeroDeBarras * 20 + "' xmlns='http://www.w3.org/2000/svg' aria-labelledby='title desc' role='img'> <title id='title'>A bar chart showing information</title>\n";
 
-        while (iteradorLLave.hasNext()) {
-            String llave = iteradorLLave.next();
-            svg += barra(llave, i);
-            i += 20;
+        for (int i = 0; i < rebanadas; i++) {
+            String color = colores.get(i);
+            svg += barra(porcentajes[i], color, listaElementos.get(i), y);
+            y += 20;
         }
 
         return svg + "    </svg>\n";
     }
 
-    private static String barra(String llave, int y) {
-        return String.format("      <g class='bar'>\n        <rect width='%1$s' height='19' y='%2$s'></rect>\n        <text x='%5$s' y='%3$s' dy=''.35em'> %4$s </text>\n      </g> \n", diccionario.get(llave) * 10, y, y + 13, llave, (diccionario.get(llave) * 10) + 10);
+    private static String barra(double porcentaje, String color, String elemento, int y) {
+        double longitudBarra = porcentaje;
+        String s = "      <g class='bar'>\n        <rect width='" + longitudBarra + "' height='19' y='" + y + "' fill='" + color + "'></rect>\n        <text x='" + (longitudBarra + 10) + "' y='" + (y + 13) + "' dy=''.35em'>" + elemento + "</text>\n      </g> \n";
+        
+        numeroDeBarras--;
+
+        return s;
     }
 
     private static String generaCodigoHTML() {
@@ -104,18 +111,7 @@ public class ConstruyeHTML {
     private static String generaPieChart() {
         pieChart pie = new pieChart(rebanadas);
         String s = "    <svg style='width: 400px; height: 300px;' xmlns='http://www.w3.org/2000/svg'>\n";
-        Lista<String> colores = new Lista<String>();
-
-        colores.agrega("#BB3D49");
-        colores.agrega("#61C0BF");
-        colores.agrega("#F04B27");
-        colores.agrega("#EEC014");
-        colores.agrega("#C014EE");
-        colores.agrega("#69D78B");
-        colores.agrega("#68F6C6");
-        colores.agrega("#745D97");
-        colores.agrega("#F07F47");
-        colores.agrega("#F56767");
+        Lista<String> colores = colores();
 
         for (int i = 0; i < rebanadas; i++) {
             String color = colores.get(i);
@@ -131,5 +127,22 @@ public class ConstruyeHTML {
 
     private static String generaTitulo() {
         return "\n<head>\n    " + "<title> " + titulo + " </title>" + "\n</head>\n";
+    }
+
+    private static Lista<String> colores() {
+        Lista<String> colores = new Lista<String>();
+
+        colores.agrega("#BB3D49");
+        colores.agrega("#61C0BF");
+        colores.agrega("#F04B27");
+        colores.agrega("#EEC014");
+        colores.agrega("#C014EE");
+        colores.agrega("#69D78B");
+        colores.agrega("#68F6C6");
+        colores.agrega("#745D97");
+        colores.agrega("#F07F47");
+        colores.agrega("#F56767");
+
+        return colores;
     }
 }
