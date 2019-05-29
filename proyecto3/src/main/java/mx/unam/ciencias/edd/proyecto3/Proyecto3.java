@@ -24,8 +24,6 @@ public class Proyecto3 {
         for (String s : lista)
             cadena += ";" + s.trim().toLowerCase().replace(".", "").replace(" ", ";").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u").replace(",", "").replace("?", "").replace("¿", "");
 
-        // Se tiene problemas cuando el archivo tiene varias lineas vacias.
-
         String[] arrayElementos = cadena.split(";");
 
         Diccionario<String, Integer> diccionario = cuentaPalabras(arrayElementos);

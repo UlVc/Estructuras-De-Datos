@@ -16,7 +16,6 @@ public abstract class ArbolBinarioAuxSVG extends ArbolBinario {
 
     /* Obtiene el número más grande del subárbol. */
     public static VerticeArbolBinario<Integer> obtenerMaximo(VerticeArbolBinario<Integer> vertice) {
-
         VerticeArbolBinario<Integer> der = null, izq = null, max;
 
         if (vertice == null) { return null; }
@@ -43,7 +42,8 @@ public abstract class ArbolBinarioAuxSVG extends ArbolBinario {
         /* Longitud para el código SVG. */
     public static int obtenerLongitudSVGArbol(ArbolBinario<Integer> ab, int radio) {
         int numeroHojas = (int) Math.pow(2, ArbolBinarioAuxSVG.profundidad(ab));
-        return (numeroHojas+(numeroHojas / 2) + 2) * (radio * 2);
+
+        return (numeroHojas + (numeroHojas / 2) + 2) * (radio * 2);
     }
 
     /* Altura para el código SVG. */
@@ -53,18 +53,17 @@ public abstract class ArbolBinarioAuxSVG extends ArbolBinario {
 
     /* Obtiene el código SVG de los vértices del árbol. */
     public static String obtenerVertices(VerticeArbolBinario<String> vertice, int radio, int i, int x, int y, EstructurasDeDatos edd, SVGUtils utils) {
-
         String arbol = "", color = "white", colorLetra = "black";
 
         i /= 2;
 
         if (vertice.hayIzquierdo()) {
-            arbol += utils.linea(x, y, x-i, y+radio*2);
-            arbol += obtenerVertices(vertice.izquierdo(), radio, i, x-i, y+radio*2, edd, utils);
+            arbol += utils.linea(x, y, x - i, y+radio * 2);
+            arbol += obtenerVertices(vertice.izquierdo(), radio, i, x - i, y+radio * 2, edd, utils);
         }
         if (vertice.hayDerecho()) {
-            arbol += utils.linea(x, y, x+i, y+radio*2);
-            arbol += obtenerVertices(vertice.derecho(), radio, i, x+i, y+radio*2, edd, utils);
+            arbol += utils.linea(x, y, x + i, y + radio * 2);
+            arbol += obtenerVertices(vertice.derecho(), radio, i, x + i, y + radio * 2, edd, utils);
         }
 
         if (vertice.toString().charAt(0) == ('R')) {
@@ -79,7 +78,7 @@ public abstract class ArbolBinarioAuxSVG extends ArbolBinario {
         arbol += utils.circuloConTexto(vertice.get(), x, y, radio, color, colorLetra);
 
         if (edd == EstructurasDeDatos.ArbolAVL)
-            arbol += utils.texto(vertice.toString().split(" ")[1], x + radio - 10, y - (radio / 2) - 10, "text-anchor='end'");
+            arbol += utils.texto(vertice.toString().split(" ")[1], x + radio - 10, y - (radio / 2) - 10, "text-anchor='middle'");
 
         return arbol;
     }
