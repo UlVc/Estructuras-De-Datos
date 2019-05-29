@@ -39,15 +39,20 @@ public class Proyecto3 {
             String llave = iteradorLLave.next();
 
             if (diccionario.get(llave) > 1)
-                conteo += diccionario.get(llave) + " veces: " + llave + "<br>";
+                if (diccionario.get(llave) > 4)
+                    conteo += "<strong><font color='red'>" + diccionario.get(llave) + "</font></strong> veces: <b>" + llave + "</b><br>\n";
+                else
+                    conteo += diccionario.get(llave) + " veces: <b>" + llave + "</b><br>\n";
             else
-                conteo += diccionario.get(llave) + " vez: " + llave + "<br>";
+                conteo += diccionario.get(llave) + " vez: <b>" + llave + "</b><br>\n";
         }
 
         Diccionario<String, Integer> diccionarioAcotado = acotaDiccionario(diccionario);
 
         String avl = graficadora.construirEstructura(diccionarioAcotado, "ArbolAVL");
         String arn = graficadora.construirEstructura(diccionarioAcotado, "ArbolRojinegro");
+
+        diccionario = cuentaPalabras(arrayElementos);
 
         Lista<Integer> listaRepeticiones = obtenListaRepeticiones(diccionario);
         Lista<String> listaElementos = obtenListaElementos(diccionario);
@@ -63,8 +68,9 @@ public class Proyecto3 {
     private static Lista<Integer> obtenListaRepeticiones(Diccionario<String, Integer> diccionario) {
         Lista<Integer> l = new Lista<Integer>();
 
-        for (Integer k : diccionario)
+        for (Integer k : diccionario) {
             l.agrega(k);
+        }
 
         l = Lista.mergeSort(l).reversa();
 
@@ -89,6 +95,9 @@ public class Proyecto3 {
                 }
             }
         }
+
+        if (longitud > 9)
+            s.inserta(9, "resto de palabras");
 
         return s;
     }

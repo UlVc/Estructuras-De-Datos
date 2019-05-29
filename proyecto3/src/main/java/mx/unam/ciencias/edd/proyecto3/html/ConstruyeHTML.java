@@ -26,7 +26,7 @@ public class ConstruyeHTML {
     public ConstruyeHTML(String body, String titulo, String directorio, Diccionario<String, Integer> diccionario, String arvolAVl, String arvolRN, double[] porcentajes, Lista<String> listaElementos) {
         this.body = body;
         this.titulo = titulo;
-        this.directorio = directorio;
+        this.directorio = checaDirectorio(directorio);
         this.diccionario = diccionario;
         this.arvolAVl = arvolAVl;
         this.arvolRN = arvolRN;
@@ -37,20 +37,29 @@ public class ConstruyeHTML {
 
     public ConstruyeHTML(Lista<String> archivos, String directorio) {
         this.archivos = archivos;
-        this.directorio = directorio;
+        this.directorio = checaDirectorio(directorio);
         this.titulo = "index";
     }
 
-    public static void generaHTML() {
-        File newFolder = new File(directorio); // Falta agregar el caso cuando se pasa un nombre por la consola sin "/".
+    private static String checaDirectorio(String directorio) {
+        if (!directorio.substring(directorio.length() - 1, directorio.length()).equals("/"))
+            return directorio += "/";
 
-        newFolder.mkdirs();
+        return directorio;
+    }
+
+    public static void generaHTML() throws Exception {
+
+        File carpeta = new File(directorio);
+
+        carpeta.mkdirs();
 
         try {
             FileWriter fw = new FileWriter(directorio + titulo + ".html");
             fw.write(generaCodigoHTML());
             fw.close();
         } catch (Exception e) {
+            String s = generaCodigoHTML();
             System.out.println("No se encontró ruta especificada.");
         }
     }
@@ -83,8 +92,14 @@ public class ConstruyeHTML {
         int y = 0;
         numeroDeBarras = diccionario.getElementos() - 1;
         Lista<String> colores = colores();
+        Lista<Double> aux = new Lista<Double>();
 
-        String svg = "    <svg class='chart' width='420' height='" + numeroDeBarras * 20 + "' xmlns='http://www.w3.org/2000/svg' aria-labelledby='title desc' role='img'> <title id='title'>A bar chart showing information</title>\n";
+        for (Double d : porcentajes)
+            aux.agrega(d);
+
+        aux = Lista.mergeSort(aux).reversa();
+
+        String svg = "    <svg class='chart' width='" + aux.get(0) * 15 + "' height='" + numeroDeBarras * 20 + "' xmlns='http://www.w3.org/2000/svg' aria-labelledby='title desc' role='img'> <title id='title'>A bar chart showing information</title>\n";
 
         for (int i = 0; i < rebanadas; i++) {
             String color = colores.get(i);
@@ -97,7 +112,7 @@ public class ConstruyeHTML {
 
     private static String barra(double porcentaje, String color, String elemento, int y) {
         double longitudBarra = porcentaje;
-        String s = "      <g class='bar'>\n        <rect width='" + longitudBarra + "' height='19' y='" + y + "' fill='" + color + "'></rect>\n        <text x='" + (longitudBarra + 10) + "' y='" + (y + 13) + "' dy=''.35em'>" + elemento + "</text>\n      </g> \n";
+        String s = "      <g class='bar'>\n        <rect width='" + (longitudBarra * 15) + "' height='19' y='" + y + "' fill='" + color + "'></rect>\n        <text x='" + (longitudBarra + 10) + "' y='" + (y + 13) + "' dy=''.35em'>" + elemento + " " + String.format("%.2f", porcentaje) + "% </text>\n      </g> \n";
         
         numeroDeBarras--;
 
@@ -105,7 +120,7 @@ public class ConstruyeHTML {
     }
 
     private static String generaCodigoHTML() {
-        return doctype + "<html>" + generaTitulo() + generaBody() + "</html>";
+        return doctype + "<html>" + generaTitulo() + generaReferenciaIndex() + generaBody() + "</html>";
     }
 
     private static String generaPieChart() {
@@ -127,6 +142,10 @@ public class ConstruyeHTML {
 
     private static String generaTitulo() {
         return "\n<head>\n    " + "<title> " + titulo + " </title>" + "\n</head>\n";
+    }
+
+    private static String generaReferenciaIndex() {
+        return "<a href='index.html'>Regresar al index</a><br>\n";
     }
 
     private static Lista<String> colores() {
