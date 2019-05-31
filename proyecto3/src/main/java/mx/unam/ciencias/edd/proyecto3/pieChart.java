@@ -11,9 +11,7 @@ public class pieChart {
     }
 
     public String generaSVG(double porcentaje, int numeroDeRebanada, String color, String texto) {
-      
       double porcentajeAngulo = (porcentaje / 100) * 360;
-
       double[] valores = calcularPorcion(porcentajeAngulo);
 
       String s = "      <path fill='" + color + "' d='M115, 115 L115,0 A115, 115 1 0, 1 " + valores[0] + ", " + valores[1] + " z' transform='rotate(" + angulo + ", 115, 115)'></path>\n";
@@ -25,7 +23,6 @@ public class pieChart {
     }
 
     private double[] calcularPorcion(double porcentajeAngulo) {
-
         double z = Math.pow(115,2) + Math.pow(115,2) - (2 * 115 * 115 * Math.cos(Math.toRadians(porcentajeAngulo)));
         z = Math.sqrt(z);
 
@@ -62,9 +59,8 @@ public class pieChart {
 
         if (numeroDeRebanada == 1 || numeroDeRebanada == 6)
             y = 0;
-        else {
+        else
             y += 60;
-        }
 
         String s = "      <rect x='" + (x - 10) + "' y='" + y + "' width='50' height='50' fill='" + color + "'/>\n";
 

@@ -69,7 +69,7 @@ public class ConstruyeHTML {
 
         for (String s : archivos) {
             int i = contadorElementos.getPrimero();
-            index += "    <a href='" + s + ".html'>" + s + "</a> Número de palabras en el archivo: " + i + " <br> \n";
+            index += "    <a href='" + s + ".html'>" + s + "</a> N&uacutemero de palabras en el archivo: " + i + " <br> \n";
             contadorElementos.elimina(i);
         }
 
@@ -99,7 +99,7 @@ public class ConstruyeHTML {
 
         aux = Lista.mergeSort(aux).reversa();
 
-        String svg = "    <svg class='chart' width='" + aux.get(0) * 15 + "' height='" + ((rebanadas * 20) + 20) + "' xmlns='http://www.w3.org/2000/svg' aria-labelledby='title desc' role='img'> <title id='title'>A bar chart showing information</title>\n";
+        String svg = "    <svg class='chart' width='" + aux.get(0) * 15 + "' height='" + ((rebanadas * 20) + 20) + "' xmlns='http://www.w3.org/2000/svg' aria-labelledby='title desc' role='img'> <title id='title'>Porcentaje sobre palabras repetidas</title>\n";
 
         for (int i = 0; i < rebanadas; i++) {
             String color = colores.get(i);
@@ -112,8 +112,8 @@ public class ConstruyeHTML {
 
     private static String barra(double porcentaje, String color, String elemento, int y) {
         double longitudBarra = porcentaje;
-        String s = "      <g class='bar'>\n        <rect width='" + (longitudBarra * 15) + "' height='19' y='" + y + "' fill='" + color + "'></rect>\n        <text x='" + (longitudBarra + 10) + "' y='" + (y + 13) + "' dy=''.35em'>" + elemento + " " + String.format("%.2f", porcentaje) + "% </text>\n      </g> \n";
-        
+        String s = "      <g class='bar'>\n        <rect width='" + (longitudBarra * 15) + "' height='19' y='" + y + "' fill='" + color + "'></rect>\n";
+
         numeroDeBarras--;
 
         return s;
@@ -125,7 +125,7 @@ public class ConstruyeHTML {
 
     private static String generaPieChart() {
         pieChart pie = new pieChart(rebanadas);
-        String s = "    <svg style='width: 400px; height: 300px;' xmlns='http://www.w3.org/2000/svg'>\n";
+        String s = "    <svg style='width: 600px; height: 300px;' xmlns='http://www.w3.org/2000/svg'>\n";
         Lista<String> colores = colores();
 
         for (int i = 0; i < rebanadas; i++) {
@@ -133,7 +133,7 @@ public class ConstruyeHTML {
             s += pie.generaSVG(porcentajes[i], i + 1, color, listaElementos.get(i));
         }
 
-        return s+= "    </svg>\n";
+        return s += "    </svg>\n";
     }
 
     private static String generaBody() {

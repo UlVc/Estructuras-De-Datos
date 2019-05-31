@@ -4,6 +4,7 @@ import mx.unam.ciencias.edd.Lista;
 import mx.unam.ciencias.edd.Diccionario;
 import mx.unam.ciencias.edd.proyecto3.eddsvg.GraficadoraEDD;
 import mx.unam.ciencias.edd.proyecto3.html.ConstruyeHTML;
+import mx.unam.ciencias.edd.proyecto3.excepcion.Excepcion;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -166,10 +167,8 @@ public class Proyecto3 {
     private static Lista<String> obtenerArchivosYDirectorio(String[] args) {
         Lista<String> archivos = new Lista<String>();
 
-        if (args.length < 1) {
-            System.out.println("Introduzca archivos y la bandera -o y después el nombre del directorio.");
-            System.exit(-1);
-        }
+        if (args.length < 1)
+            Excepcion.error("Introduzca archivos y la bandera -o y después el nombre del directorio.");
 
         for (int i = 0; i < args.length; i++)
             if (args[i].equals("-o"))
@@ -177,10 +176,8 @@ public class Proyecto3 {
             else
                 archivos.agrega(args[i]);
 
-        if (directorio.equals("")) {
-            System.out.println("Introduzca la bandera -o y después el nombre del directorio.");
-            System.exit(-1);
-        }
+        if (directorio.equals(""))
+            Excepcion.error("Introduzca la bandera -o y después el nombre del directorio.");
 
         archivos.elimina(directorio);
 
@@ -199,30 +196,26 @@ public class Proyecto3 {
             String tituloConExtension = directorioTitulo[directorioTitulo.length - 1];
             String txt = tituloConExtension.substring(tituloConExtension.length() - 3, tituloConExtension.length());
 
-            if (!txt.equals("txt")) {
-                System.out.println("Introduzca de manera correcta un archivo de texto.");
-                System.exit(-1);
-            }
+            if (!txt.equals("txt"))
+                Excepcion.error("Introduzca de manera correcta un archivo de texto.");
 
             String titulo = tituloConExtension.substring(0, tituloConExtension.length() - 4);
             titulosLista.agrega(titulo);
 
             try {
                 BufferedReader br = new BufferedReader(new FileReader(s));
-                
+
                 while ((cadena = br.readLine()) != null)
                     if (cadena.trim().length() > 0)
                         lista.agrega(cadena.trim());
 
                 br.close();
 
-                if (lista.esVacia()) {
-                    System.out.println("Introduzca texto en el archivo " + s);
-                    System.exit(-1);
-                }
+                if (lista.esVacia())
+                    Excepcion.error("Introduzca texto en el archivo " + s);
+
             } catch (Exception e) {
-                System.out.println("Introduzca de manera correcta un archivo de texto.");
-                System.exit(-1);
+                Excepcion.error("Introduzca de manera correcta un archivo de texto.");
             }
 
             html(directorio, lista, titulo);
