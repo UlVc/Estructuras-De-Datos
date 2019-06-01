@@ -23,7 +23,8 @@ public class Proyecto3 {
         String conteo = "";
 
         for (String s : lista) {
-            String aux = Normalizer.normalize(s.trim().toLowerCase(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+            String aux = Normalizer.normalize(s.trim().toLowerCase(), Normalizer.Form.NFD);
+            aux = aux.replaceAll("[^\\p{ASCII}]", "");
             aux = aux.replaceAll("\\p{Punct}", "");
             aux = aux.replaceAll("[*\\p{L}\\p{Nd}]-", " ");
             aux = aux.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
@@ -31,9 +32,14 @@ public class Proyecto3 {
             cadena += " " + aux;
         }
 
-        String[] arrayElementos = cadena.split(" ");
+        String[] arrayElementosAux = cadena.split(" ");
+        Lista<String> listaElementosRepetidos = new Lista<String>();
 
-        Diccionario<String, Integer> diccionario = cuentaPalabras(arrayElementos);
+        for (String s : arrayElementosAux)
+            if (s.length() > 0)
+                listaElementosRepetidos.agrega(s);
+
+        Diccionario<String, Integer> diccionario = cuentaPalabras(listaElementosRepetidos);
 
         contadorElementos.agrega(diccionario.getElementos());
 
@@ -56,19 +62,19 @@ public class Proyecto3 {
         String avl = graficadora.construirEstructura(diccionarioAcotado, "ArbolAVL");
         String arn = graficadora.construirEstructura(diccionarioAcotado, "ArbolRojinegro");
 
-        diccionario = cuentaPalabras(arrayElementos);
+        diccionario = cuentaPalabras(listaElementosRepetidos);
 
         Lista<Integer> listaRepeticiones = obtenListaRepeticiones(diccionario);
         Lista<String> listaElementos = obtenListaElementos(diccionario);
 
-        diccionario = cuentaPalabras(arrayElementos);
+        diccionario = cuentaPalabras(listaElementosRepetidos);
 
         double[] porcentajes = calculaPorcentaje(listaRepeticiones);
 
         ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn, porcentajes, listaElementos);
         html.generaHTML();
 
-        diccionario = cuentaPalabras(arrayElementos);
+        diccionario = cuentaPalabras(listaElementosRepetidos);
         diccionarios.agrega(diccionario);
     }
 
@@ -159,16 +165,16 @@ public class Proyecto3 {
         return aux;
     }
 
-    private static Diccionario<String, Integer> cuentaPalabras(String[] array) {
+    private static Diccionario<String, Integer> cuentaPalabras(Lista<String> lista) {
         Diccionario<String, Integer> diccionario = new Diccionario<String, Integer>();
 
-        for (int i = 1; i < array.length; i++)
-            if (diccionario.contiene(array[i])) {
-                int n = diccionario.get(array[i]);
-                diccionario.elimina(array[i]);
-                diccionario.agrega(array[i], n += 1);
+        for (String s : lista)
+            if (diccionario.contiene(s)) {
+                int n = diccionario.get(s);
+                diccionario.elimina(s);
+                diccionario.agrega(s, n += 1);
             } else
-                diccionario.agrega(array[i], 1);
+                diccionario.agrega(s, 1);
 
         return diccionario;
     }

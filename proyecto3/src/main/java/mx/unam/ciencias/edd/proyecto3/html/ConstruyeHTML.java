@@ -155,7 +155,7 @@ public class ConstruyeHTML {
             if (d.length() > max)
                 max = d.length();
 
-        String t = "    <svg style='width:" + (max * 10) + "px; height: 330px;' xmlns='http:www.w3.org/2000/svg'>\n";
+        String t = "    <svg style='width:" + ((max * 15) + 50) + "px; height: 330px;' xmlns='http:www.w3.org/2000/svg'>\n";
 
         for (int i = 0; i < rebanadas; i++) {
             String color = colores.get(i);
