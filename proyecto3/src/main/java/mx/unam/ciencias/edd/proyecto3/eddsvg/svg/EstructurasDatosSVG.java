@@ -1,4 +1,4 @@
-package mx.unam.ciencias.edd.proyecto3.eddsvg.SVG;
+package mx.unam.ciencias.edd.proyecto3.eddsvg.svg;
 
 import mx.unam.ciencias.edd.*;
 import mx.unam.ciencias.edd.proyecto3.eddsvg.*;

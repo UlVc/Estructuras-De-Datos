@@ -2,7 +2,7 @@ package mx.unam.ciencias.edd.proyecto3.html;
 
 import mx.unam.ciencias.edd.Diccionario;
 import mx.unam.ciencias.edd.Lista;
-import mx.unam.ciencias.edd.proyecto3.pieChart;
+import mx.unam.ciencias.edd.proyecto3.eddsvg.svg.PieChart;
 
 import java.io.FileWriter;
 import java.io.File;
@@ -41,7 +41,7 @@ public class ConstruyeHTML {
         this.titulo = "index";
     }
 
-    private static String checaDirectorio(String directorio) {
+    private String checaDirectorio(String directorio) {
         if (!directorio.substring(directorio.length() - 1, directorio.length()).equals("/"))
             return directorio += "/";
 
@@ -49,7 +49,6 @@ public class ConstruyeHTML {
     }
 
     public static void generaHTML() throws Exception {
-
         File carpeta = new File(directorio);
 
         carpeta.mkdirs();
@@ -120,24 +119,49 @@ public class ConstruyeHTML {
     }
 
     private static String generaCodigoHTML() {
-        return doctype + "<html>" + generaTitulo() + generaReferenciaIndex() + generaBody() + "</html>";
+        return doctype + "<html>" + generaTitulo() + "\n <header><h1 align='center'>" + titulo + "</h1></header>\n" + generaReferenciaIndex() + "<br>" + generaBody() + "</html>";
     }
 
     private static String generaPieChart() {
-        pieChart pie = new pieChart(rebanadas);
-        String s = "    <svg style='width: 600px; height: 300px;' xmlns='http://www.w3.org/2000/svg'>\n";
+        PieChart pie = new PieChart(rebanadas);
+        String s = "    <svg style='width: 300px; height: 300px;' xmlns='http://www.w3.org/2000/svg'>\n";
         Lista<String> colores = colores();
 
         for (int i = 0; i < rebanadas; i++) {
             String color = colores.get(i);
+
             s += pie.generaSVG(porcentajes[i], i + 1, color, listaElementos.get(i));
         }
 
-        return s += "    </svg>\n";
+        s += "    </svg>\n";
+
+        return s;
+    }
+
+    private static String generaInformacion() {
+        PieChart pie = new PieChart(rebanadas);
+        Lista<String> colores = colores();
+        int max = 0;
+
+        for (String d : listaElementos)
+            if (d.length() > max)
+                max = d.length();
+
+        String t = "    <svg style='width:" + (max * 10) + "px; height: 330px;' xmlns='http:www.w3.org/2000/svg'>\n";
+
+        for (int i = 0; i < rebanadas; i++) {
+            String color = colores.get(i);
+
+            t += pie.generaTexto(listaElementos.get(i), color, i + 1, porcentajes[i]);
+        }
+
+        t += "    </svg>\n";
+
+        return t;
     }
 
     private static String generaBody() {
-        return "<body>\n    " + body + "<br>\n" + generaBarraSVG() + generaPieChart() + arvolRN + "\n" + arvolAVl + "\n</body>\n";
+        return "<body>\n    " + body + "<br>\n" + generaInformacion() + generaPieChart() + generaBarraSVG() + arvolRN + "\n" + arvolAVl + "\n</body>\n";
     }
 
     private static String generaTitulo() {

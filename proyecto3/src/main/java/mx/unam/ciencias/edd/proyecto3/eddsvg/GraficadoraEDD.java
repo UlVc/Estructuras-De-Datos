@@ -6,14 +6,14 @@ import java.io.InputStreamReader;
 import java.io.FileReader;
 
 import mx.unam.ciencias.edd.*;
-import mx.unam.ciencias.edd.proyecto3.eddsvg.SVG.*;
+import mx.unam.ciencias.edd.proyecto3.eddsvg.svg.*;
 
 public class GraficadoraEDD extends ConstructorEDD {
 
     private static Lista<Integer> elementos = new Lista<Integer>();
     private static EstructurasDatosSVG edSVG = new EstructurasDatosSVG();
 
-    /* Lee los elementos que se le pasaron después del tipo de estructura de datos y construye un código SVG.*/
+    /* Lee los elementos que se le pasaron después del tipo de estructura de datos y construye un código SVG. */
     public static String construirEstructura(Diccionario<String, Integer> elementos, String estructura) throws Exception {
         if (estructura.equals("ArbolRojinegro"))
             return edSVG.arbolBinario(construirArbolRojinegroEntero(elementos), construirArbolRojinegroCadena(elementos), EstructurasDeDatos.ArbolRojinegro, elementos);

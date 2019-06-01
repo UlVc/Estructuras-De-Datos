@@ -105,7 +105,6 @@ public class ConstructorEDD {
         return lista;
     }
 
-    // Mejorar algoritmo
     private static Lista<Lista<String>> relaciones(Lista<Lista<String>> lista) {
         Lista<Lista<String>> relaciones = new Lista<Lista<String>>();
 
@@ -114,20 +113,20 @@ public class ConstructorEDD {
             lista2 = lista.copia();
             lista2.elimina(l);
 
-            for(String s : l) {
-                for (Lista<String> k : lista2) {
+            for(String s : l)
+                for (Lista<String> k : lista2)
                     if (s.length() > 6)
                         if (k.contiene(s)) {
                             Lista<String> aux = new Lista<String>();
+
                             aux.agrega(l.getPrimero());
                             aux.agrega(k.getPrimero());
+
                             if (!relaciones.contiene(aux))
                                 relaciones.agrega(aux);
-                        }
-                }   
-            }
+                        } 
 
-        lista.elimina(l);
+            lista.elimina(l);
         }
 
         return relaciones;

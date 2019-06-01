@@ -1,10 +1,10 @@
-package mx.unam.ciencias.edd.proyecto3.eddsvg.SVG;
+package mx.unam.ciencias.edd.proyecto3.eddsvg.svg;
 
 import java.util.NoSuchElementException;
 import java.util.Iterator;
 
 import mx.unam.ciencias.edd.proyecto3.eddsvg.EstructurasDeDatos;
-import mx.unam.ciencias.edd.proyecto3.eddsvg.SVG.SVGUtils;
+import mx.unam.ciencias.edd.proyecto3.eddsvg.svg.SVGUtils;
 import mx.unam.ciencias.edd.ArbolBinario;
 import mx.unam.ciencias.edd.VerticeArbolBinario;
 
@@ -78,7 +78,7 @@ public abstract class ArbolBinarioAuxSVG extends ArbolBinario {
         arbol += utils.circuloConTexto(vertice.get(), x, y, radio, color, colorLetra);
 
         if (edd == EstructurasDeDatos.ArbolAVL)
-            arbol += utils.texto(vertice.toString().split(" ")[1], x + radio - 10, y - (radio / 2) - 10, "text-anchor='middle'");
+            arbol += utils.texto(vertice.toString().split(" ")[1], x + radio - 15, y - (radio / 2) - 15, "text-anchor='middle'");
 
         return arbol;
     }

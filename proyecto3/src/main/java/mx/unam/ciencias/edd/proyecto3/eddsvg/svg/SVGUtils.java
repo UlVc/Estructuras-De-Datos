@@ -1,13 +1,13 @@
-package mx.unam.ciencias.edd.proyecto3.eddsvg.SVG;
+package mx.unam.ciencias.edd.proyecto3.eddsvg.svg;
 
 /* Clase para crear código SVG. */
 public class SVGUtils {
 
     public String texto(String texto, double x, double y, String extra) {
-        return String.format("      <text x='%1$s' y='%2$s' font-size='20' %3$s>%4$s</text>\n", x, y, extra, texto);
+        return String.format("      <text x='%1$s' y='%2$s' font-size='12' %3$s>%4$s</text>\n", x, y, extra, texto);
     }
     public String numero(int numero, double x, double y, String extra) {
-        return String.format("      <text x='%1$s' y='%2$s' font-size='20' %3$s>%4$s</text>\n", x, y, extra, numero);
+        return String.format("      <text x='%1$s' y='%2$s' font-size='12' %3$s>%4$s</text>\n", x, y, extra, numero);
     }
 
     public String circulo(double radio, double x, double y, String color) {
