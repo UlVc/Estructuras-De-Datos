@@ -66,9 +66,16 @@ public class ConstruyeHTML {
     public static void generadorIndex(Lista<Integer> contadorElementos, String grafica) {
         String index = doctype + "<html>" + generaTitulo();
 
+        index += "<header><h1 align='center'>Proyecto 3: Contador de palabras</h1></header>";
+
         for (String s : archivos) {
             int i = contadorElementos.getPrimero();
-            index += "    <a href='" + s + ".html'>" + s + "</a> N&uacutemero de palabras en el archivo: " + i + " <br> \n";
+
+            if (i > 59)
+                index += "    <a href='" + s + ".html'>" + s + "</a> - N&uacutemero de palabras en el archivo: <strong><font color='red'>" + i + " </font></strong><br> \n";
+            else
+                index += "    <a href='" + s + ".html'>" + s + "</a> - N&uacutemero de palabras en el archivo: <strong>" + i + " </strong><br> \n";
+
             contadorElementos.elimina(i);
         }
 
@@ -111,7 +118,7 @@ public class ConstruyeHTML {
 
     private static String barra(double porcentaje, String color, String elemento, int y) {
         double longitudBarra = porcentaje;
-        String s = "      <g class='bar'>\n        <rect width='" + (longitudBarra * 15) + "' height='19' y='" + y + "' fill='" + color + "'></rect>\n";
+        String s = "      <g class='bar'>\n        <rect width='" + (longitudBarra * 10) + "' height='19' y='" + y + "' fill='" + color + "'></rect>\n";
 
         numeroDeBarras--;
 
@@ -119,7 +126,7 @@ public class ConstruyeHTML {
     }
 
     private static String generaCodigoHTML() {
-        return doctype + "<html>" + generaTitulo() + "\n <header><h1 align='center'>" + titulo + "</h1></header>\n" + generaReferenciaIndex() + "<br>" + generaBody() + "</html>";
+        return doctype + "<html>" + generaTitulo() + " <header><h1 align='center'>" + titulo + "</h1></header>\n" + generaReferenciaIndex() + "<br>" + generaBody() + "</html>";
     }
 
     private static String generaPieChart() {

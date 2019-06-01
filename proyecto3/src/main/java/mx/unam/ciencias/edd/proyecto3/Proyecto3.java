@@ -172,7 +172,11 @@ public class Proyecto3 {
 
         for (int i = 0; i < args.length; i++)
             if (args[i].equals("-o"))
-                directorio = args[i + 1];
+                try {
+                    directorio = args[i + 1];
+                } catch(ArrayIndexOutOfBoundsException aiobe){
+                    Excepcion.error("Inserte un directorio después de la bandera -o.");
+                }
             else
                 archivos.agrega(args[i]);
 
@@ -180,6 +184,9 @@ public class Proyecto3 {
             Excepcion.error("Introduzca la bandera -o y después el nombre del directorio.");
 
         archivos.elimina(directorio);
+
+        if (archivos.esVacia())
+            Excepcion.error("Introduzca archivos.");
 
         return archivos;
     }
