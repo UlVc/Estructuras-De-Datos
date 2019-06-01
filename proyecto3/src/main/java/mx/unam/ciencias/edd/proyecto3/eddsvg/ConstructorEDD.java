@@ -75,6 +75,8 @@ public class ConstructorEDD {
         relaciones = palabrasEnCadaArchivo(archivos, elementos);
         relaciones = relaciones(relaciones);
 
+        System.out.println(elementos.getElementos());
+
         for (Lista<String> l : relaciones)
             g.conecta(l.getPrimero(), l.getUltimo());
 

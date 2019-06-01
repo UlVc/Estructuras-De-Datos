@@ -35,9 +35,8 @@ public class PieChart {
         return new double[]{x, y};
     }
 
-    public String generaTexto(String texto, String color, int numeroDeRebanada, double porcentaje) {
+    public String generaTexto(String texto, String color, int numeroDeRebanada, double porcentaje, int y) {
         int x = 10;
-        y += 30;
 
         String s = "      <rect x='" + (x - 10) + "' y='" + y + "' width='20' height='20' stroke='#000000' fill='" + color + "'/>\n";
         s += "      <text x='" + (x + 13) + "' y='" + (y - 2) + "' font-size='12' font-weight='bold' dy='1.35em'>" + texto + " - " + String.format("%.2f", porcentaje) + "%</text>\n";

@@ -9,6 +9,7 @@ import mx.unam.ciencias.edd.proyecto3.excepcion.Excepcion;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Iterator;
+import java.text.Normalizer;
 
 public class Proyecto3 {
 
@@ -21,15 +22,20 @@ public class Proyecto3 {
         String cadena = "";
         String conteo = "";
 
-        for (String s : lista)
-            cadena += ";" + s.trim().toLowerCase().replace(".", "").replace(" ", ";").replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u").replace(",", "").replace("?", "").replace("¿", "");
+        for (String s : lista) {
+            String aux = Normalizer.normalize(s.trim().toLowerCase(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+            aux = aux.replaceAll("\\p{Punct}", "");
+            aux = aux.replaceAll("[*\\p{L}\\p{Nd}]-", " ");
+            aux = aux.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 
-        String[] arrayElementos = cadena.split(";");
+            cadena += " " + aux;
+        }
+
+        String[] arrayElementos = cadena.split(" ");
 
         Diccionario<String, Integer> diccionario = cuentaPalabras(arrayElementos);
 
         contadorElementos.agrega(diccionario.getElementos());
-        diccionarios.agrega(diccionario);
 
         Iterator<String> iteradorLLave = diccionario.iteradorLlaves();
 
@@ -61,6 +67,9 @@ public class Proyecto3 {
 
         ConstruyeHTML html = new ConstruyeHTML(conteo, titulo, directorio, diccionario, avl, arn, porcentajes, listaElementos);
         html.generaHTML();
+
+        diccionario = cuentaPalabras(arrayElementos);
+        diccionarios.agrega(diccionario);
     }
 
     private static Lista<Integer> obtenListaRepeticiones(Diccionario<String, Integer> diccionario) {
@@ -224,6 +233,7 @@ public class Proyecto3 {
             } catch (Exception e) {
                 Excepcion.error("Introduzca de manera correcta un archivo de texto.");
             }
+
 
             html(directorio, lista, titulo);
             lista.limpia();

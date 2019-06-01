@@ -74,13 +74,16 @@ public class GraficaAuxSVG extends Grafica {
 
     public static int obtenerMaximo(Grafica<Integer> g) {
         int max = 0;
+
         for (int i : g) {
             max = i;
             break;
         }
+        
         for (int i : g)
             if (max < i)
                 max = i;
+
         return max;
     }
 

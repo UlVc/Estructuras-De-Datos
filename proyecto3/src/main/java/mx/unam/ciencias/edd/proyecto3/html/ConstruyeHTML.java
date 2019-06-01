@@ -149,6 +149,7 @@ public class ConstruyeHTML {
         PieChart pie = new PieChart(rebanadas);
         Lista<String> colores = colores();
         int max = 0;
+        int y = 30;
 
         for (String d : listaElementos)
             if (d.length() > max)
@@ -159,7 +160,8 @@ public class ConstruyeHTML {
         for (int i = 0; i < rebanadas; i++) {
             String color = colores.get(i);
 
-            t += pie.generaTexto(listaElementos.get(i), color, i + 1, porcentajes[i]);
+            t += pie.generaTexto(listaElementos.get(i), color, i + 1, porcentajes[i], y);
+            y += 30;
         }
 
         t += "    </svg>\n";

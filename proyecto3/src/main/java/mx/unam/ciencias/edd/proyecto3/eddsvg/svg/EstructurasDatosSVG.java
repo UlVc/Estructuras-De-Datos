@@ -33,7 +33,7 @@ public class EstructurasDatosSVG {
         largoSVG = ArbolBinarioAuxSVG.obtenerLongitudSVGArbol(ab, radio);
         x = largoSVG / 2;
         y = radio * 3;
-        cadena = ArbolBinarioAuxSVG.obtenerVertices(abC.raiz(), radio, largoSVG/2, x, y, arbol_a, utils);
+        cadena = ArbolBinarioAuxSVG.obtenerVertices(abC.raiz(), radio, largoSVG / 2, x, y, arbol_a, utils);
 
         return String.format("    <svg width='%1$s' height='%2$s' xmlns='http://www.w3.org/2000/svg'>\n%3$s    </svg>", largoSVG, altoSVG, cadena);
     }
