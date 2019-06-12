@@ -1,5 +1,5 @@
 # Estructuras-De-Datos
-- PRÁCTICAS
+## PRÁCTICAS
 
 Práctica 1: Listas.
 
@@ -25,7 +25,7 @@ Práctica 11: Conjuntos.
 
 Práctica 12: Mejorando gráficas.
 
-- PROYECTOS
+## PROYECTOS
 
 Proyecto 1: Ordenador de Textos.
 
